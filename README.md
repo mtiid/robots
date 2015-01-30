@@ -60,12 +60,14 @@ quick-test-code
         out.add(Math.random2(0, 20));
         out.add(127);
         out.send();
+        10::ms => now;
     }
 
 programmers
 -----------
 
-hiduino-robot-server and midi-robot-client written by Ness Morris and Bruce Lott in the winter of 2013-2014, based on code by Ajay Kapur, Owen Vallis, and Dimitri Diakopoulos.
+hiduino-robot-server and midi-robot-client written by Ness Morris and Bruce Lott in the winter of 2013-2014, 
+hiduino-robot-server based on code by Ajay Kapur, Owen Vallis, and Dimitri Diakopoulos.
 
 serial-robot-server written by Eric Heep in the summer of 2014, currently maintained by Eric Heep.
 
