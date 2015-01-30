@@ -4,47 +4,6 @@ Written by Eric Heep in the summer of 2014, jointly maintained by CalArts Music 
 
 Allows for serial communication to the mechatronic instruments (robots) in the Machine Lab.
 
-communication
--------------
-
-To connect using ChucK via OSC:
-
-    OscOut oout;
-
-    ("chuckServer.local", 50000) => oout.dest;
-
-Or to connect wirelessly:
-
-    OscOut oout;
-    
-    // this ip will change every once in a while
-    ("10.2.35.254", 50000) => oout.dest;
-
-Then to send to a robot using its OSC address, addresses should be kept the same as the robot names (MDarimBot, "/MDarimBot"):
-
-    oout.start("/Address")
-    oout.add(note)
-    oout.add(velocity)
-    oout.send();
-
-A full list of robots by their OSC addresses
-
-    // hiduino robots
-    /drumbot
-    /clappers
-    /ganapati
-    /jackbass
-    /jackgtr
-    /jackperc
-    /devibot
-
-    // serial robots
-    /marimba
-    /trimpspin
-    /trimpbeat
-
-To connect using MIDI, see the [midi-robot-client](https://github.com/MTIID/midi-robot-client) repo.
-
 robot information
 -----------------
 
