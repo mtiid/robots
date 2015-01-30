@@ -3,7 +3,9 @@ robots
 
 There are currently two servers, one for the hiduino bots (ceiling bots), and one for the serial bots (piano, marimba).
 
-The two servers should always be running, but if they aren't, go to terminal and run the master.ck files for both servers, you can copy/paste this code into terminal.
+The two servers should always be left running, but in the case that they aren't, you'll need to open terminal and run the master.ck files for both servers.
+
+You can simply copy/paste this code into terminal.
 
     chuck ~/git/robots/hiduino-robot-server/master.ck &
     chuck ~/git/robots/serial-robot-server/master.ck
@@ -11,7 +13,7 @@ The two servers should always be running, but if they aren't, go to terminal and
 communication
 -------------
 
-To connect using ChucK via OSC:
+To connect using ChucK using OSC with a LAN connection:
 
     OscOut out;
 
@@ -24,7 +26,7 @@ Or to connect wirelessly:
     // this ip will change every once in a while
     ("10.2.35.254", 50000) => out.dest;
 
-Then to send to a robot using its OSC address, usually similar to it's name.
+To send to a robot using its OSC address.
 
     out.start("/clappers");
     out.add(note);
@@ -51,6 +53,7 @@ To connect using MIDI, see the [midi-robot-client](https://github.com/MTIID/midi
 
 quick-test-code
 ---------------
+Copy/paste this to quickly see if you can successfully connect.
 
     OscOut out;
     ("10.2.35.245", 50000) => out.dest;
@@ -66,10 +69,10 @@ quick-test-code
 programmers
 -----------
 
-hiduino-robot-server and midi-robot-client written by Ness Morris and Bruce Lott in the winter of 2013-2014. 
+hiduino-robot-server and midi-robot-client written by Ness Morris and Bruce Lott in the winter of 2013-2014
 
-hiduino-robot-server based on code by Ajay Kapur, Owen Vallis, and Dimitri Diakopoulos.
+hiduino-robot-server based on code by Ajay Kapur, Owen Vallis, and Dimitri Diakopoulos
 
-serial-robot-server written by Eric Heep in the summer of 2014, currently maintained by Eric Heep.
+serial-robot-server written by Eric Heep in the summer of 2014, currently maintained by Eric Heep
 
 If there are any issues connecting or adding a robot to the server, email ericheep@alum.calarts.edu
