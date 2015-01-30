@@ -16,23 +16,23 @@ communication
 
 To connect using ChucK via OSC:
 
-    OscOut oout;
+    OscOut out;
 
-    ("chuckServer.local", 50000) => oout.dest;
+    ("chuckServer.local", 50000) => out.dest;
 
 Or to connect wirelessly:
 
-    OscOut oout;
+    OscOut out;
     
     // this ip will change every once in a while
-    ("10.2.35.254", 50000) => oout.dest;
+    ("10.2.35.254", 50000) => out.dest;
 
 Then to send to a robot using its OSC address, usually similar to it's name.
 
-    oout.start("/clappers")
-    oout.add(note)
-    oout.add(velocity)
-    oout.send();
+    out.start("/clappers")
+    out.add(note)
+    out.add(velocity)
+    out.send();
 
 A full list of robots by their OSC addresses
 
