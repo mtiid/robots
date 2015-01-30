@@ -29,9 +29,9 @@ Or to connect wirelessly:
 
 Then to send to a robot using its OSC address, usually similar to it's name.
 
-    out.start("/clappers")
-    out.add(note)
-    out.add(velocity)
+    out.start("/clappers");
+    out.add(note);
+    out.add(velocity);
     out.send();
 
 A full list of robots by their OSC addresses
@@ -51,6 +51,19 @@ A full list of robots by their OSC addresses
     /trimpbeat
 
 To connect using MIDI, see the [midi-robot-client](https://github.com/MTIID/midi-robot-client) repo.
+
+quick-test-code
+---------------
+
+    OscOut out;
+    ("10.2.35.245", 50000) => out.dest;
+
+    while(true) {
+        out.start("/clappers");
+        out.add(Math.random2(0, 20));
+        out.add(127);
+        out.send();
+    }
 
 programmers
 -----------

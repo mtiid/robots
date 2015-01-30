@@ -12,7 +12,7 @@ OscOut oout;
  93,95,96] @=> int mscl[];
 
 while (true) {
-    oout.start("/Trimpspin");
+    oout.start("/marimba");
     oout.add(Math.random2(0,20) + 60);
     oout.add(127);
     oout.send();
