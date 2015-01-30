@@ -1,0 +1,83 @@
+Notes: 
+- An 'X' indicates a broken trigger. 
+- Pitched percussion are notated 1-9 low to high. 
+- If a trigger has a decimal (1.1, 1.2), that means multiple beaters hit the same thing
+- The faster you trigger something, the lower the velocity should be 
+- Ganapati can auto-shutdown if used too fast with too much velocity. Replug power cable to restart if this happens.
+
+Mahadevi:
+Channel 1
+60: X (Drum 1)
+61: Drum 3
+62: Drum 4
+63: X (Drum 2)
+64: Cymbal
+65: Bell(s) (use full velocity or shake rigorously)
+66: Slat Stack
+67: Tambourine paddle
+68: Finger Cymbals
+69: Head bob (no sound)
+70: Top Drum 1
+71: Top Drum 2
+72: X
+
+Ganapati: 
+Channel 2
+60: X
+61: Drum 4
+62: Drum 3.1
+63: Drum 3.2
+64: X
+65: X
+66: Drum 1.1 
+67: Drum 1.2
+68: Drum 1.3
+69: X
+
+Breakbot: 
+Channel 3
+60: X (Kick 1.1)
+61: Kick 1.2
+62: X
+63: X (squeaky)
+64: X
+65: Snare brush
+66: Ride 1.1
+67: X (Ride 1.2) 
+68: Ride 1.3
+69: X :(
+70: X
+71: Crash 1.1
+72: Crash 1.2
+72: Crash 1.2 
+
+Clappers: 
+Channel 4
+Front of room (with projector screen)
+1     5     9      X     17
+2     6     10    14   18
+3     7     X      X    19
+4     8     X     16    20
+Back of class (doors)
+
+Jackbox Percussion:
+Channel 5
+60: X
+61: Metal Drum
+62: Cymbal 3
+63: Cymbal 2
+64: Cymbal 1
+65: Bongo 3
+66: Bongo 1
+67: Bongo 2
+68-75: Glockenspiel C Major Scale
+
+Jackbox Bass:
+Channel 6
+Note #s 40-64 (E3-E5, should be in tune with MIDI pitch)
+
+Jackbox Guitar:
+Channel 7
+Note # 52-73 (E3-C#6, should be in tune with MIDI pitch)
+
+
