@@ -49,7 +49,7 @@ A full list of robots by their OSC addresses
     /trimpspin
     /trimpbeat
 
-To connect using MIDI, see the [midi-robot-client](https://github.com/MTIID/midi-robot-client) repo.
+To connect using MIDI, see the [midi-robot-client](https://github.com/MTIID/robots/tree/master/midi-robot-client) repo.
 
 quick-test-code
 ---------------
