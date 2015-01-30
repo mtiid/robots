@@ -5,9 +5,9 @@ There are currently two servers, one for the hiduino bots (ceiling bots), and on
 
 The two servers should always be running, but if they aren't, go to terminal and run the masters for both servers.
 
-    $ cd ~/git/robots
-    $ chuck --loop $ /hiduino-robot-server/master.ck
-    $ chuck --port:8889 /serial-robot-server/master.ck
+    cd ~/git/robots
+    chuck --loop $ /hiduino-robot-server/master.ck
+    chuck --port:8889 /serial-robot-server/master.ck
 
 You could also just
 
