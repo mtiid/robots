@@ -66,9 +66,10 @@ quick-test-code
 programmers
 -----------
 
-hiduino-robot-server and midi-robot-client written by Ness Morris and Bruce Lott in the winter of 2013-2014, 
+hiduino-robot-server and midi-robot-client written by Ness Morris and Bruce Lott in the winter of 2013-2014. 
+
 hiduino-robot-server based on code by Ajay Kapur, Owen Vallis, and Dimitri Diakopoulos.
 
 serial-robot-server written by Eric Heep in the summer of 2014, currently maintained by Eric Heep.
 
-If there are any issues connecting or adding a robot to the server, email ericheep@alum.calarts.edu robots
+If there are any issues connecting or adding a robot to the server, email ericheep@alum.calarts.edu
