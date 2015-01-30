@@ -3,12 +3,10 @@ robots
 
 There are currently two servers, one for the hiduino bots (ceiling bots), and one for the serial bots (piano, marimba).
 
-The two servers should always be running, but if they aren't, go to terminal and run the masters for both servers, you can copy paste this code.
+The two servers should always be running, but if they aren't, go to terminal and run the master.ck files for both servers, you can copy/paste this code into terminal.
 
     chuck ~/git/robots/hiduino-robot-server/master.ck &
     chuck ~/git/robots/serial-robot-server/master.ck
-
-You could also just
 
 communication
 -------------
