@@ -160,27 +160,27 @@ void loud(int snapArray, int level){
 
 void loop(){
   Serial.println("Testing 'flip'");
-  for(int t = 50; t > 2; t = t - random(-1,3)){
+  for(int t = 50; t > 30; t = t - random(-1,3)){
     for(int i = 0; i < 10; i++){
       flip(random(0,4),random(0,7));
       delay(t);
     }
   }
   Serial.println("Testing 'swipe'");
-  for(int t = 2; t < 60; t = t - random(-2,1)){
+  for(int t = 30; t < 60; t = t - random(-2,1)){
     for(int i = 0; i < 10; i++){
-      swipe(random(0,4), t/2);
+      swipe(random(0,4), t/4);
     }
   }
   Serial.println("Testing 'loud' "); 
-  for(int t = 120; t > 2; t = t - random(-2,5)){
+  for(int t = 120; t > 40; t = t - random(-2,5)){
     for(int i = 0; i < 8; i++){
       loud(random(0,4), i);
       delay(t);
     }
   }
   Serial.println("Testing 'very loud' ");
-  for(int t = 120; t > 2; t = t - random(-2,5)){
+  for(int t = 40; t < 50; t = t - random(-3,2)){
     for(int i = 0; i < 8; i++){
       veryLoud(i);
       delay(t);
