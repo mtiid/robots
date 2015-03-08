@@ -8,7 +8,7 @@ for(int i; i < list.cap(); i++)
 }
 
 SerialIO cereal;
-cereal.open(2, SerialIO.B57600, SerialIO.ASCII);
+cereal.open(0, SerialIO.B57600, SerialIO.ASCII);
 
 //dev two is usually it
 int channel;
@@ -18,6 +18,7 @@ int devices;
 int mbuttons[8];
 int rbuttons[8];
 int sbuttons[8];
+
 [2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0] @=> float sliders[];
 [50.0,50.0,50.0,50.0,50.0,50.0,50.0,50.0] @=> float knobs[];
 
@@ -30,7 +31,7 @@ for( int i; i < min.cap(); i++ )
     // open the device
     if( min[i].open( i ) )
     {
-        <<< "device", i, "->", min[i].name(), "->", "open: SUCCESS" >>>;
+        //<<< "device", i, "->", min[i].name(), "->", "open: SUCCESS" >>>;
         spork ~ poller( min[i], i );
         devices++;
     }
@@ -39,7 +40,7 @@ for( int i; i < min.cap(); i++ )
 // check
 if( devices == 0 )
 {
-    <<< "um, couldn't open a single MIDI device, bailing out..." >>>;
+    //<<< "um, couldn't open a single MIDI device, bailing out..." >>>;
     me.exit();
 }
 
@@ -71,12 +72,12 @@ fun void poller(MidiIn min, int id){
         min => now;
         while(min.recv(msg)){
             
-            <<<msg.data1, msg.data2, msg.data3>>>;
+            //<<<msg.data1, msg.data2, msg.data3>>>;
             msg.data2 => channel;
             msg.data3 => value;
             
             if( channel < 8){
-                <<<(((value/127) * 7) + 1)>>>;
+                //<<<(((value/127) * 7) + 1)>>>;
                 Std.ftoi(((value/127) * 7) + 1) => sliders[channel];
             }
             else if (channel > 15 && channel < 24){
