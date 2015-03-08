@@ -38,7 +38,7 @@ boolean snapper4State[8] = {
 };
 
 void setup(){
-  Serial.begin(57600);
+  Serial.begin(9600);
   for(int i = 0; i < 8; i++){
     pinMode(snapper1[i], OUTPUT);
     digitalWrite(snapper1[i], HIGH);
