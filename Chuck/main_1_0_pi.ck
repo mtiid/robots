@@ -84,13 +84,13 @@ fun void poller(MidiIn min, int id){
                 value*2 + 2 => knobs[channel - 16];   
             }
             else if(channel > 31 && channel < 40 && value == 127){
-                spork ~flipSwitch((channel - 32)%4, Std.ftoi(sliders[(channel -32)])); 
+                flipSwitch((channel - 32)%4, Std.ftoi(sliders[(channel -32)])); 
             }
             else if(channel  > 47 && channel < 56 && value == 127){
-                spork ~poundBank((channel - 48)%4, Std.ftoi(sliders[(channel - 48)]));
+                poundBank((channel - 48)%4, Std.ftoi(sliders[(channel - 48)]));
             }
             else if (channel > 63 && channel < 72 && value == 127){
-                spork ~allBanks(channel-63);   
+                allBanks(channel-63);   
             }
         }
     }
