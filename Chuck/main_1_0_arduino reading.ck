@@ -8,7 +8,7 @@ for(int i; i < list.cap(); i++)
     chout <= i <= ": " <= list[i] <= IO.newline();
 }
 
-SerialIO cereal[16];
+SerialIO cereal[list.cap()];
 //cereal.open(2, SerialIO.B57600, SerialIO.ASCII);
 
 //dev two is usually it
@@ -16,6 +16,7 @@ int channel;
 float value;
 int midiDevices;
 int arduinoDevices;
+int arduino;
 
 int mbuttons[8];
 int rbuttons[8];
@@ -35,7 +36,7 @@ for( int i; i < min.cap(); i++ )
     {
         <<< "MIDIdevice", i, "->", min[i].name(), "->", "open: SUCCESS" >>>;
         spork ~ poller( min[i], i );
-        devices++;
+        midiDevices++;
     }
     else break;
 }
@@ -43,39 +44,38 @@ for( int i; i < min.cap(); i++ )
 for( int i; i < cereal.cap(); i++ )
 {
     // no print err
-    cereal[i].printerr( 0 );
-    
+    //cereal[i].printerr( 0 );
     // open the device
     if( cereal[i].open( i, SerialIO.B57600, SerialIO.ASCII) )
     {
         <<< "Arduinodevice", i, "->", min[i].name(), "->", "open: SUCCESS" >>>;
-        //spork ~ poller( min[i], i );
-        devices++;
+        i => arduino;
+        arduinoDevices++;
     }
     else break;
 }
 // check
-if( devices == 0 )
+if( midiDevices == 0 )
 {
     <<< "um, couldn't open a single MIDI device, bailing out..." >>>;
     me.exit();
 }
 
 fun void allBanks(int level){
-    cereal <= "V" <= " " <= level <= "=" <= "`" <= "{" <= "\n";
+    cereal[arduino] <= "V" <= " " <= level <= "=" <= "`" <= "{" <= "\n";
 }
 
 fun void flipSwitch(int bank, int swit){
-    cereal <= "F" <= " " <= bank <= "=" <= swit <= "{" <= "\n";
+    cereal[arduino] <= "F" <= " " <= bank <= "=" <= swit <= "{" <= "\n";
 }
 
 fun void poundBank(int bank, int switchNum){
-    cereal <= "L" <= " " <= bank <= "=" <= switchNum <= "{" <= "\n";
+    cereal[arduino] <= "L" <= " " <= bank <= "=" <= switchNum <= "{" <= "\n";
 }
 
 fun void swipeBank(int bank, int length){
     for(0 => int i; i < 8; i++){
-        cereal <= "F" <= " " <= bank <= "=" <= i <= "{" <= "\n";
+        cereal[arduino] <= "F" <= " " <= bank <= "=" <= i <= "{" <= "\n";
         length::ms => now;
     }
 }
