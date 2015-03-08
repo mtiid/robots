@@ -16,10 +16,17 @@ static int snapper3 [8] = {
 static int snapper4 [8] = {
   39,41,43,45,47,49,51,53 
 };
+//need to turn into bytes
 //to keep track of button states
 boolean snapper1State[8] = {
   1, 1, 1, 1, 1, 1, 1, 1
 };
+
+//byte snapper1State = 255;
+//byte snapper2State;
+//byte snapper3State;
+//byte snapper4State;
+
 boolean snapper2State[8] = {
   1, 1, 1, 1, 1, 1, 1, 1
 };
@@ -66,7 +73,41 @@ void flip(int snapArray, int switchNum){
     digitalWrite(snapper4[switchNum], snapper4State[switchNum]); 
   }
 }
+/*
+// Depreciated code in chuck now
+//use swipe for really fast attacks
+void swipe(int snapArray, int time){
 
+  if (snapArray == 0){
+    for(int i = 0; i < 8; i++){
+      snapper1State[i] = !snapper1State[i];
+      digitalWrite(snapper1[i], snapper1State[i]);
+      delay(time);
+    }
+  } 
+  else if (snapArray == 1){
+    for(int i = 0; i < 8; i++){
+      snapper2State[i] = !snapper2State[i];
+      digitalWrite(snapper2[i], snapper2State[i]);
+      delay(time);
+    }
+  } 
+  else if (snapArray == 2){
+    for(int i = 0; i < 8; i++){
+      snapper3State[i] = !snapper3State[i];
+      digitalWrite(snapper3[i], snapper3State[i]);
+      delay(time);
+    }
+  } 
+  else if (snapArray == 3){
+    for(int i = 0; i < 8; i++){
+      snapper4State[i] = !snapper4State[i];
+      digitalWrite(snapper4[i], snapper4State[i]);
+      delay(time);
+    }
+  }
+}
+*/
 void veryLoud(int level){
   if(level > 8){
     level = 8;
