@@ -31,8 +31,8 @@ for( int i; i < min.cap(); i++ )
     // open the device
     if( min[i].open( i ) )
     {
-        //<<< "device", i, "->", min[i].name(), "->", "open: SUCCESS" >>>;
-        spork ~ poller( min[i], i );
+        <<< "device", i, "->", min[i].name(), "->", "open: SUCCESS" >>>;
+        spork ~poller( min[i], i );
         devices++;
     }
     else break;
@@ -40,7 +40,7 @@ for( int i; i < min.cap(); i++ )
 // check
 if( devices == 0 )
 {
-    //<<< "um, couldn't open a single MIDI device, bailing out..." >>>;
+    <<< "um, couldn't open a single MIDI device, bailing out..." >>>;
     me.exit();
 }
 
@@ -56,13 +56,21 @@ fun void poundBank(int bank, int switchNum){
     cereal <= "L" <= " " <= bank <= "=" <= switchNum <= "{" <= "\n";
 }
 
-fun void swipeBank(int bank, int length){
+fun void swipeBank(int bank, float length){
     for(0 => int i; i < 8; i++){
         cereal <= "F" <= " " <= bank <= "=" <= i <= "{" <= "\n";
         length::ms => now;
     }
 }
 
+fun void swipeAll(float length){
+    for( 0 => int b; b < 4; b++){
+        for(0 => int i; i < 8; i++){
+            cereal <= "F" <= " " <= b <= "=" <= i <= "{" <= "\n";          
+        }
+        length::ms => now;
+    }
+}
 
 fun void poller(MidiIn min, int id){
     
@@ -72,35 +80,37 @@ fun void poller(MidiIn min, int id){
         min => now;
         while(min.recv(msg)){
             
-            <<<msg.data1, msg.data2, msg.data3>>>;
+            //pull midi channel and value
             msg.data2 => channel;
             msg.data3 => value;
             
             if( channel < 8){
-                //<<<(((value/127) * 7) + 1)>>>;
                 Std.ftoi(((value/127) * 7) + 1) => sliders[channel];
             }
             else if (channel > 15 && channel < 24){
-                value*2 + 2 => knobs[channel - 16];   
+                value*0.25 => knobs[channel - 16];   
             }
             else if(channel > 31 && channel < 40 && value == 127){
-                spork ~swipeBank((channel - 32)%4, Std.ftoi(knobs[(channel-32)])); 
+                spork ~flipSwitch((channel - 32)%4, Std.ftoi(sliders[(channel -32)])); 
             }
             else if(channel  > 47 && channel < 56 && value == 127){
                 spork ~poundBank((channel - 48)%4, Std.ftoi(sliders[(channel - 48)]));
             }
             else if (channel > 63 && channel < 72 && value == 127){
                 spork ~allBanks(channel-63);   
+            }           
+            else if(channel > 40 && channel < 45 && value == 127){
+                spork ~swipeBank(channel - 41, knobs[channel - 41]);   
             }
+            else if (channel > 59 && channel < 63 && value == 127){
+                spork ~swipeAll(knobs[0]*(channel - 59));
+            }
+            
         }
     }
 }
 
 while(true)
 {
-    //swipeBank(Math.random2(0,3), Math.random2(10, 200));
-    //allBanks(Math.random2(0,7));
-    //flipSwitch(Math.random2(0,3),Math.random2(0,7));
-    //poundBank(Math.random2(0,3), Math.random2(0,7));
     93::ms => now;
 }
