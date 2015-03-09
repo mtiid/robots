@@ -8,7 +8,7 @@ for(int i; i < list.cap(); i++)
 }
 
 SerialIO cereal;
-cereal.open(2, SerialIO.B9600, SerialIO.ASCII);
+cereal.open(0, SerialIO.B9600, SerialIO.ASCII);
 
 //dev two is usually it
 int channel;
