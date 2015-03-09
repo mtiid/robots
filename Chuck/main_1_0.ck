@@ -8,7 +8,7 @@ for(int i; i < list.cap(); i++)
 }
 
 SerialIO cereal;
-cereal.open(0, SerialIO.B9600, SerialIO.ASCII);
+cereal.open(2, SerialIO.B9600, SerialIO.ASCII);
 
 //dev two is usually it
 int channel;
@@ -72,7 +72,7 @@ fun void poller(MidiIn min, int id){
         min => now;
         while(min.recv(msg)){
             
-            //<<<msg.data1, msg.data2, msg.data3>>>;
+            <<<msg.data1, msg.data2, msg.data3>>>;
             msg.data2 => channel;
             msg.data3 => value;
             

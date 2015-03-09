@@ -8,7 +8,7 @@ for(int i; i < list.cap(); i++)
 }
 
 SerialIO cereal;
-cereal.open(0, SerialIO.B9600, SerialIO.ASCII);
+cereal.open(2, SerialIO.B9600, SerialIO.ASCII);
 
 //dev two is usually it
 int channel;
@@ -32,7 +32,7 @@ for( int i; i < min.cap(); i++ )
     if( min[i].open( i ) )
     {
         //<<< "device", i, "->", min[i].name(), "->", "open: SUCCESS" >>>;
-        spork ~ poller( min[i], i );
+        poller( min[i], i );
         devices++;
     }
     else break;
@@ -56,9 +56,18 @@ fun void poundBank(int bank, int switchNum){
     cereal <= "L" <= " " <= bank <= "=" <= switchNum <= "{" <= "\n";
 }
 
-fun void swipeBank(int bank, int length){
+fun void swipeBank(int bank, float length){
     for(0 => int i; i < 8; i++){
         cereal <= "F" <= " " <= bank <= "=" <= i <= "{" <= "\n";
+        length::ms => now;
+    }
+}
+
+fun void swipeAll(float length){
+    for( 0 => int b; b < 4; b++){
+        for(0 => int i; i < 8; i++){
+            cereal <= "F" <= " " <= b <= "=" <= i <= "{" <= "\n";          
+        }
         length::ms => now;
     }
 }
@@ -81,7 +90,7 @@ fun void poller(MidiIn min, int id){
                 Std.ftoi(((value/127) * 7) + 1) => sliders[channel];
             }
             else if (channel > 15 && channel < 24){
-                value*2 + 2 => knobs[channel - 16];   
+                value*0.25 => knobs[channel - 16];   
             }
             else if(channel > 31 && channel < 40 && value == 127){
                 flipSwitch((channel - 32)%4, Std.ftoi(sliders[(channel -32)])); 
@@ -91,6 +100,12 @@ fun void poller(MidiIn min, int id){
             }
             else if (channel > 63 && channel < 72 && value == 127){
                 allBanks(channel-63);   
+            }
+            else if(channel > 40 && channel < 45 && value == 127){
+                swipeBank(channel - 41, knobs[channel - 41]);   
+            }
+            else if (channel > 59 && channel < 63 && value == 127){
+                swipeAll(knobs[0]*(channel - 59));
             }
         }
     }

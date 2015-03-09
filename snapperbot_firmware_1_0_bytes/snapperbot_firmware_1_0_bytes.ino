@@ -22,11 +22,6 @@ boolean snapper1State[8] = {
   1, 1, 1, 1, 1, 1, 1, 1
 };
 
-//byte snapper1State = 255;
-//byte snapper2State;
-//byte snapper3State;
-//byte snapper4State;
-
 boolean snapper2State[8] = {
   1, 1, 1, 1, 1, 1, 1, 1
 };
