@@ -8,7 +8,7 @@ for(int i; i < list.cap(); i++)
 }
 
 SerialIO cereal;
-cereal.open(0, SerialIO.B9600, SerialIO.ASCII);
+cereal.open(2, SerialIO.B9600, SerialIO.ASCII);
 
 //dev two is usually it
 int channel;
@@ -56,22 +56,13 @@ fun void poundBank(int bank, int switchNum){
     cereal <= "L" <= " " <= bank <= "=" <= switchNum <= "{" <= "\n";
 }
 
-fun void swipeBank(int bank, float length){
+fun void swipeBank(int bank, int length){
     for(0 => int i; i < 8; i++){
         cereal <= "F" <= " " <= bank <= "=" <= i <= "{" <= "\n";
         length::ms => now;
     }
 }
-/*
-fun void swipeAll(float length){
-    for( 0 => int b; b < 4; b++){
-        for(0 => int i; i < 8; i++){
-            cereal <= "F" <= " " <= b <= "=" <= i <= "{" <= "\n";          
-        }
-        length::ms => now;
-    }
-}
-*/
+
 
 fun void poller(MidiIn min, int id){
     
@@ -81,7 +72,7 @@ fun void poller(MidiIn min, int id){
         min => now;
         while(min.recv(msg)){
             
-            <<<msg.data1, msg.data2, msg.data3>>>;
+            //<<<msg.data1, msg.data2, msg.data3>>>;
             msg.data2 => channel;
             msg.data3 => value;
             
@@ -90,30 +81,26 @@ fun void poller(MidiIn min, int id){
                 Std.ftoi(((value/127) * 7) + 1) => sliders[channel];
             }
             else if (channel > 15 && channel < 24){
-                value*0.25 => knobs[channel - 16];   
+                value*2 + 2 => knobs[channel - 16];   
             }
             else if(channel > 31 && channel < 40 && value == 127){
-                flipSwitch((channel - 32)%4, Std.ftoi(sliders[(channel -32)])); 
+                flipSwitch((channel - 32)%4, Std.ftoi(knobs[(channel-32)])); 
             }
             else if(channel  > 47 && channel < 56 && value == 127){
-                poundBank((channel - 48)%4, Std.ftoi(sliders[(channel - 48)]));
+                 poundBank((channel - 48)%4, Std.ftoi(sliders[(channel - 48)]));
             }
             else if (channel > 63 && channel < 72 && value == 127){
-                allBanks(channel-63);   
+                 allBanks(channel-63);   
             }
-            /*
-            else if(channel > 40 && channel < 45 && value == 127){
-                swipeBank(channel - 41, knobs[channel - 41]);   
-            }
-            else if (channel > 59 && channel < 63 && value == 127){
-                swipeAll(knobs[0]*(channel - 59));
-            }
-            */
         }
     }
 }
 
 while(true)
 {
+    //swipeBank(Math.random2(0,3), Math.random2(10, 200));
+    //allBanks(Math.random2(0,7));
+    //flipSwitch(Math.random2(0,3),Math.random2(0,7));
+    //poundBank(Math.random2(0,3), Math.random2(0,7));
     93::ms => now;
 }
