@@ -81,7 +81,7 @@ fun void poller(MidiIn min, int id){
         min => now;
         while(min.recv(msg)){
             
-            //<<<msg.data1, msg.data2, msg.data3>>>;
+            <<<msg.data1, msg.data2, msg.data3>>>;
             msg.data2 => channel;
             msg.data3 => value;
             
