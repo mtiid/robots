@@ -32,7 +32,7 @@ for( int i; i < min.cap(); i++ )
     if( min[i].open( i ) )
     {
         //<<< "device", i, "->", min[i].name(), "->", "open: SUCCESS" >>>;
-        poller( min[i], i );
+        spork ~poller( min[i], i );
         devices++;
     }
     else break;
@@ -62,7 +62,7 @@ fun void swipeBank(int bank, float length){
         length::ms => now;
     }
 }
-/*
+
 fun void swipeAll(float length){
     for( 0 => int b; b < 4; b++){
         for(0 => int i; i < 8; i++){
@@ -71,7 +71,6 @@ fun void swipeAll(float length){
         length::ms => now;
     }
 }
-*/
 
 fun void poller(MidiIn min, int id){
     
@@ -81,7 +80,7 @@ fun void poller(MidiIn min, int id){
         min => now;
         while(min.recv(msg)){
             
-            <<<msg.data1, msg.data2, msg.data3>>>;
+            //<<<msg.data1, msg.data2, msg.data3>>>;
             msg.data2 => channel;
             msg.data3 => value;
             
@@ -101,14 +100,14 @@ fun void poller(MidiIn min, int id){
             else if (channel > 63 && channel < 72 && value == 127){
                 allBanks(channel-63);   
             }
-            /*
+            
             else if(channel > 40 && channel < 45 && value == 127){
                 swipeBank(channel - 41, knobs[channel - 41]);   
             }
             else if (channel > 59 && channel < 63 && value == 127){
                 swipeAll(knobs[0]*(channel - 59));
             }
-            */
+            
         }
     }
 }
