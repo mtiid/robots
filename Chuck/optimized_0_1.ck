@@ -44,14 +44,13 @@ if( devices == 0 )
     me.exit();
 }
 
-
-
 fun void allBanks(int level){
     cereal <= Std.itoa(Math.random2(0,255));  
 }
 
 fun void flipSwitch(int bank, int swit){
-    cereal <= Std.itoa(Math.random2(0,255));  }
+    cereal <= Std.itoa(Math.random2(0,255));  
+    }
 
 fun void poundBank(int bank, int switchNum){
     cereal <= Std.itoa(Math.random2(0,255));  
@@ -65,7 +64,7 @@ fun void swipeBank(int bank, float length){
 }
 
 fun void serialTest(){
- cereal <=  
+ cereal <=  Std.itoa(Math.random2(0,255));
 }
 
 fun void oscListener() {
@@ -132,9 +131,10 @@ fun void poller(MidiIn min, int id){
     }
 }
 
-spork ~ oscListener();
+spork ~ poller();
 
 while(true)
 {
-    93::ms => now;
+100::ms => now;
+serialTest();
 }
