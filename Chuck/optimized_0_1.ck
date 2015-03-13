@@ -8,7 +8,7 @@ for(int i; i < list.cap(); i++)
 }
 
 SerialIO cereal;
-cereal.open(2, SerialIO.B9600, SerialIO.ASCII);
+cereal.open(2, SerialIO.B57600, SerialIO.BINARY);
 
 //dev two is usually it
 int channel;
@@ -44,23 +44,28 @@ if( devices == 0 )
     me.exit();
 }
 
+
+
 fun void allBanks(int level){
-    cereal <= "V" <= " " <= level <= "=" <= "`" <= "{" <= "\n";
+    cereal <= Std.itoa(Math.random2(0,255));  
 }
 
 fun void flipSwitch(int bank, int swit){
-    cereal <= "F" <= " " <= bank <= "=" <= swit <= "{" <= "\n";
-}
+    cereal <= Std.itoa(Math.random2(0,255));  }
 
 fun void poundBank(int bank, int switchNum){
-    cereal <= "L" <= " " <= bank <= "=" <= switchNum <= "{" <= "\n";
+    cereal <= Std.itoa(Math.random2(0,255));  
 }
 
 fun void swipeBank(int bank, float length){
     for(0 => int i; i < 8; i++){
-        cereal <= "F" <= " " <= bank <= "=" <= i <= "{" <= "\n";
+       Std.itoa(Math.random2(0,255));  
         length::ms => now;
     }
+}
+
+fun void serialTest(){
+ cereal <=  
 }
 
 fun void oscListener() {
