@@ -44,13 +44,18 @@ if( devices == 0 )
     me.exit();
 }
 
+
+['[',']'] @=> int bytes[];
+
 fun void allBanks(int level){
-    cereal <= Math.random2(0,255);  
+    //bitpacking but with math, not sure what the syntax is in chuck
+    level = Std.itoa(level+127);
+    cereal.writeBytes(level);
 }
 
 fun void flipSwitch(int bank, int swit){
     cereal <= Math.random2(0,255);  
-}
+    }
 
 fun void poundBank(int bank, int switchNum){
     cereal <= Math.random2(0,255);  
@@ -58,7 +63,7 @@ fun void poundBank(int bank, int switchNum){
 
 fun void swipeBank(int bank, float length){
     for(0 => int i; i < 8; i++){
-        Math.random2(0,255);  
+       Math.random2(0,255);  
         length::ms => now;
     }
 }
@@ -90,11 +95,12 @@ fun void oscListener() {
 fun void swipeAll(float length){
     for( 0 => int b; b < 4; b++){
         for(0 => int i; i < 8; i++){
-            cereal <= "F" <= " " <= b <= "=" <= i <= "{" <= "\n";          
+            cereal;          
         }
         length::ms => now;
     }
 }
+
 
 fun void poller(MidiIn min, int id){
     
@@ -136,6 +142,5 @@ fun void poller(MidiIn min, int id){
 
 while(true)
 {
-    serialTest();
-    Math.random2(10,300)::ms => now;
+Math.random2(10,300)::ms => now;
 }

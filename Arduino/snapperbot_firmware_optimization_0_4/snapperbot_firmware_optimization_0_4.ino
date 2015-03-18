@@ -97,8 +97,8 @@ void loud(uint8_t snapArray, uint8_t level) {
 void byteListener() {
   if (Serial.available()) {
     while (Serial.available()) {
-      incommingByte = Serial.read();
-      parseSerial(incommingByte);
+      //incommingByte = Serial.read();
+        parseSerial(Serial.read());
     }
   }
 }
@@ -106,6 +106,7 @@ void byteListener() {
 void parseSerial(uint8_t data) {
   mode = (data >> 6);
   //
+  Serial.println(mode);
   if (mode == 0) {
     flipSwitch((data & 0x30) >> 4, (1 >> (data & 0x0C)));
   }
@@ -122,6 +123,12 @@ void parseSerial(uint8_t data) {
 //
 void setup() {
   Serial.begin(57600);
+  for (int i = 0; i < 8; i++) {
+    pinMode(snapper1[i], OUTPUT);
+    pinMode(snapper2[i], OUTPUT);
+    pinMode(snapper3[i], OUTPUT);
+    pinMode(snapper4[i], OUTPUT);
+  }
   for (int i = 0; i < 4; i++) {
     snapperStates[i] = 0xFF;
   }

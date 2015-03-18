@@ -30,11 +30,6 @@ boolean snapper4State[8] = {
   1, 1, 1, 1, 1, 1, 1, 1
 };
 
-uint8 snappers[4];
-
-#define setLow(in_byte, pos_bit) ((in_byte) &= ~(1 << (pos_bit)))
-#define setHigh(in_byte, pos_bit) ((in_byte) |= (1 << (pos_bit)))
-
 void setup(){
   Serial.begin(9600);
   for(int i = 0; i < 8; i++){
@@ -47,10 +42,6 @@ void setup(){
     pinMode(snapper4[i], OUTPUT);
     digitalWrite(snapper4[i], HIGH);  
   } 
-  
-  for(int i = 0; i < 4; i++){
-    snappers[i] = 0xFF;
-  }
 }
 //flip one specific switch, pass in the snapper number and the nummber of a switch on the snapper
 void flip(int snapArray, int switchNum){
@@ -59,10 +50,9 @@ void flip(int snapArray, int switchNum){
     switchNum = 7; 
   }
   if (snapArray == 0){
-    snappers[0] ~= snappers[0];
-    PORTA = snappers[0];
-    //snapper1State[switchNum] = !snapper1State[switchNum];
-    //digitalWrite(snapper1[switchNum], snapper1State[switchNum]);
+    
+    snapper1State[switchNum] = !snapper1State[switchNum];
+    digitalWrite(snapper1[switchNum], snapper1State[switchNum]);
      
   }
   else if (snapArray == 1){
