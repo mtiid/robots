@@ -27,6 +27,9 @@ int byte[1];
 
 [2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0] @=> float sliders[];
 [50.0,50.0,50.0,50.0,50.0,50.0,50.0,50.0] @=> float knobs[];
+[.45,.26, .24, .55, .12, .55, .13, .45] @=> float rhythmA[];
+[.25, .24, .12, .13] @=> float rhythmB[];
+[.125,.55, .55, .45] @=> float rhythmC[];
 
 //open midi receiver, exit on fail
 for( int i; i < min.cap(); i++ )
@@ -58,6 +61,7 @@ fun void allBanks(int level){
     //write our byte
     cereal.writeBytes(byte);
     //clear our byte
+    <<<byte[0]>>>;
     0 => byte[0];
 }
 
@@ -91,7 +95,7 @@ fun void poundBank(int bank, int switchNum){
 fun void swipeBank(int bank, float length){
     <<<"Swipe Bank">>>;
     for(0 => int i; i < 8; i++){
-        //Math.random2(0,255);  
+        spork ~ flipSwitch(bank, i);  
         length::ms => now;
     }
 }
@@ -100,9 +104,20 @@ fun void swipeAll(float length){
     <<<"Swipe All">>>;
     for( 0 => int b; b < 4; b++){
         for(0 => int i; i < 8; i++){
-            cereal;          
+            spork ~ flipSwitch(b, i);
+            (length*10)::ms => now;
         }
-        length::ms => now;
+        (length*20)::ms => now;
+    }
+}
+
+fun void playRhythm(float rhythm[], float scaler){
+    <<<"Play Rhythm">>>;
+    for( 0 => int b; b < 4; b++){
+        for(0 => int i; i < 8; i++){
+            spork ~ flipSwitch(b, i);
+            (rhythm[(i % rhythm.size())]*scaler)::ms => now;
+        }
     }
 }
 
@@ -117,7 +132,7 @@ fun void poller(MidiIn min, int id){
             //pull midi channel and value
             msg.data2 => channel;
             msg.data3 => value;
-            
+            <<<channel>>>;
             if( channel < 8){
                 Std.ftoi(((value/127) * 6) + 1) => sliders[channel];
             }
@@ -138,6 +153,15 @@ fun void poller(MidiIn min, int id){
             }
             else if (channel > 59 && channel < 63 && value == 127){
                 spork ~swipeAll(knobs[0]*(channel - 59));
+            }
+            else if (channel == 46){
+                spork ~playRhythm(rhythmA,knobs[8);
+            }
+            else if (channel == 58){
+                spork ~playRhythm(rhythmB,knobs[8);
+            }
+            else if (channel == 59){
+                spork ~playRhythm(rhythmC,knobs[8);
             }
             
         }

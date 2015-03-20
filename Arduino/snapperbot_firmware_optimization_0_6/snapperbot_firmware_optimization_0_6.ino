@@ -64,26 +64,22 @@ void flipSwitch(uint8_t array, uint8_t swit) {
 }
 //
 void veryLoud(uint8_t level) {
+  //for each array of snapperbots
+  uint8_t mask;
+  mask = 255 >> (8 - level);
   for (int i = 0; i < 4; i++) {
-    snapperStates[i] ^= (255 >> (8 - level));
+    //change the snapper states to the proper level
+    snapperStates[i] ^= mask;
   }
+  //write to all the ports at once
+  setPorts(4);
 }
 //
 void loud(uint8_t snapArray, uint8_t level) {
+  //change the states of the appropiate snappers
   snapperStates[snapArray] ^= (255 >> (8 - level));
-  //turn level into a bitmask
-  if (snapArray == 0) {
-    PORTA = snapperStates[0];
-  }
-  else if (snapArray == 1) {
-    PORTB = snapperStates[1];
-  }
-  else if (snapArray == 2) {
-    PORTC = snapperStates[2];
-  }
-  else if (snapArray == 3) {
-    PORTL = snapperStates[3];
-  }
+  //write to all the ports
+  setPorts(4);
 }
 //
 //////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
@@ -91,20 +87,19 @@ void loud(uint8_t snapArray, uint8_t level) {
 //////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 //
 void byteListener() {
+  //if we have serial data in the buffer
   if (Serial.available()) {
+    //and as long as we have bytes to be read
     while (Serial.available()) {
-      //incommingByte = Serial.read();
-
+      //parse out the data one byte at a time
       parseSerial(Serial.read());
-
     }
   }
 }
 //
 void parseSerial(uint8_t data) {
+  //the mode is the 2 most significant bits
   mode = (data >> 6);
-  //
-  Serial.println(mode);
   if (mode == 0) {
     flipSwitch((data & 0x30) >> 4, (1 >> (data & 0x0C)));
   }
@@ -121,15 +116,18 @@ void parseSerial(uint8_t data) {
 //
 void setup() {
   Serial.begin(57600);
+  //set all pins as output pins
   for (int i = 0; i < 8; i++) {
     pinMode(snapper1[i], OUTPUT);
     pinMode(snapper2[i], OUTPUT);
     pinMode(snapper3[i], OUTPUT);
     pinMode(snapper4[i], OUTPUT);
   }
+  //set them all to high (which is low on the snapper arrays)
   for (int i = 0; i < 4; i++) {
     snapperStates[i] = 0xFF;
   }
+  //write to all the ports at the same time
   setPorts(4);
 }
 //
@@ -138,5 +136,6 @@ void setup() {
 //////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 //
 void loop() {
+  //poll for serial data
   byteListener();
 }
