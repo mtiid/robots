@@ -116,7 +116,7 @@ void parseSerial(uint8_t data) {
     loud((data & 0x30) >> 4, (data & 0x0E) >> 1);
   }
   else if (mode == 2) {
-    veryLoud(data & 0x70 >> 3);
+    veryLoud(data & 0x38 >> 3);
   }
 }
 //////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
