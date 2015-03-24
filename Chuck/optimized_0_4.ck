@@ -27,6 +27,7 @@ int byte[1];
 
 [2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0] @=> float sliders[];
 [50.0,50.0,50.0,50.0,50.0,50.0,50.0,50.0] @=> float knobs[];
+
 [.45,.26, .24, .55, .12, .55, .13, .45] @=> float rhythmA[];
 [.25, .24, .12, .13] @=> float rhythmB[];
 [.125,.55, .55, .45] @=> float rhythmC[];
@@ -154,14 +155,15 @@ fun void poller(MidiIn min, int id){
             else if (channel > 59 && channel < 63 && value == 127){
                 spork ~swipeAll(knobs[0]*(channel - 59));
             }
+            
             else if (channel == 46){
-                spork ~playRhythm(rhythmA,knobs[8);
+                spork ~playRhythm(rhythmA,knobs[7]);
             }
             else if (channel == 58){
-                spork ~playRhythm(rhythmB,knobs[8);
+                spork ~playRhythm(rhythmB,knobs[7]);
             }
             else if (channel == 59){
-                spork ~playRhythm(rhythmC,knobs[8);
+                spork ~playRhythm(rhythmC,knobs[7]);
             }
             
         }

@@ -17,9 +17,9 @@
 #define unit8_t VERY 2
 // PORTA, PORTB, PORTC, PORTL
 static int snapper1[8] = {22, 23, 24, 25, 26, 27, 28, 29};
-static int snapper2 [8] = {10, 11, 12, 13, 50, 51, 52, 53};
-static int snapper3 [8] = {30, 31, 32, 33, 34, 35, 36, 37};
-static int snapper4 [8] = {42, 43, 44, 45, 46, 47, 48, 49};
+static int snapper2[8] = {10, 11, 12, 13, 50, 51, 52, 53};
+static int snapper3[8] = {30, 31, 32, 33, 34, 35, 36, 37};
+static int snapper4[8] = {42, 43, 44, 45, 46, 47, 48, 49};
 //
 uint8_t snapperStates[4];//the states of the snappers
 //the incomming messages
@@ -53,14 +53,14 @@ void setPorts(uint8_t which) {
 }
 
 void flipSwitch(uint8_t array, uint8_t swit) {
-    //create a byte that we use as a bitmask
-    uint8_t mask;
-    //create a mask of all 0's except for the location of the bit we want to change
-    mask = 1 << (swit - 1);
-    //we xor the current array of values to change just the byte in question
-    snapperStates[array] = snapperStates[array] ^ mask;
-    //lastly we write to our given port
-    setPorts(array);
+  //create a byte that we use as a bitmask
+  uint8_t mask;
+  //create a mask of all 0's except for the location of the bit we want to change
+  mask = 1 << (swit - 1);
+  //we xor the current array of values to change just the byte in question
+  snapperStates[array] = snapperStates[array] ^ mask;
+  //lastly we write to our given port
+  setPorts(array);
 }
 //
 void veryLoud(uint8_t level) {
@@ -111,6 +111,23 @@ void parseSerial(uint8_t data) {
   }
 }
 //////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//                             Test Loops
+//////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//
+void startupTest() {
+  for (int t = 1; t < 9; t++) {
+    for (int i = 0; i < 4; i++) {
+      loud(i, t);
+      delay(125);
+    }
+  }
+  for (int i = 1; i < 9; i++) {
+    veryLoud(i);
+    delay(250);
+  }
+}
+
+//////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 //                             Setup Loop
 //////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 //
@@ -134,6 +151,8 @@ void setup() {
 //////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 //                               Main Loop
 //////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//
+startupTest();
 //
 void loop() {
   //poll for serial data
