@@ -127,6 +127,9 @@ void startupTest() {
   }
 }
 
+void randomFlipTest(){
+  flipSwitch(random(0,4),random(0,8));
+}
 //////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 //                             Setup Loop
 //////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
@@ -146,7 +149,6 @@ void setup() {
   }
   //write to all the ports at the same time
   setPorts(4);
-  startupTest();
 }
 //
 //////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
@@ -157,5 +159,7 @@ void setup() {
 //
 void loop() {
   //poll for serial data
-  byteListener();
+  randomFlipTest();
+  delay(random(3melter,5));
+  //byteListener();
 }
