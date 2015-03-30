@@ -15,13 +15,25 @@ public class SerialBot {
 
     // for optional rescaling
     int scale[64];
+    int actuators[64];
     scale.cap() => int scaleCap;
     for (int i; i < scale.cap(); i++) {
         i => scale[i];
+        i => actuators[i];
     }
 
     // reassigns incoming MIDI notes to their proper robot note
     fun void rescale(int newScale[]) {
+        newScale.cap() => scaleCap;
+        for (int i; i < newScale.cap(); i++) {
+            newScale[i] => scale[i];
+        }
+    }
+
+    // reassigns incoming MIDI notes to their proper robot note
+    // overloaded in case you need to specify an order (ie 1,2,3,5) 
+    fun void rescale(int newScale[], int order[]) {
+        order @=> actuators;
         newScale.cap() => scaleCap;
         for (int i; i < newScale.cap(); i++) {
             newScale[i] => scale[i];
@@ -33,7 +45,7 @@ public class SerialBot {
         int pass, newNote;
         for (int i; i < scaleCap; i++) {
             if (oldNote == scale[i]) {
-                i => newNote;
+                actuators[i] => newNote;
                 1 => pass;
             }
         }
