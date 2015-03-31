@@ -15,7 +15,13 @@
 #define unit8_t FLIP 0
 #define unit8_t LOUD 1
 #define unit8_t VERY 2
+
+//for communicatoin
+#include <Wire.h>
+
+
 // PORTA, PORTB, PORTC, PORTL
+
 static int snapper1[8] = {22, 23, 24, 25, 26, 27, 28, 29};
 static int snapper2[8] = {10, 11, 12, 13, 50, 51, 52, 53};
 static int snapper3[8] = {30, 31, 32, 33, 34, 35, 36, 37};
@@ -26,6 +32,14 @@ uint8_t snapperStates[4];//the states of the snappers
 uint8_t incommingByte;
 //for parsing serial
 uint8_t mode;
+
+//
+//////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//                              i2c functions
+//////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//
+
+
 //
 //////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 //                        Intrument Commands
@@ -86,18 +100,18 @@ void loud(uint8_t snapArray, uint8_t level) {
 //                              Serial Stuff
 //////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 //
-void byteListener() {
+void i2cEvent() {
   //if we have serial data in the buffer
-  if (Serial.available()) {
+  if (Wire.available()) {
     //and as long as we have bytes to be read
-    while (Serial.available()) {
+    while (Wire.available()) {
       //parse out the data one byte at a time
-      parseSerial(Serial.read());
+      parseI2C(Wire.read());
     }
   }
 }
 //
-void parseSerial(uint8_t data) {
+void parseI2C(uint8_t data) {
   //the mode is the 2 most significant bits
   mode = (data >> 6);
   if (mode == 0) {
@@ -135,7 +149,8 @@ void randomFlipTest(){
 //////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 //
 void setup() {
-  Serial.begin(57600);
+  Wire.begin(5);//this means the address for the arduino is now 4?
+  Wire.onReceive(i2cEvent);//when the arduino receives a message on its Serial port it will forward the data to the receiveEvent event function
   //set all pins as output pins
   for (int i = 0; i < 8; i++) {
     pinMode(snapper1[i], OUTPUT);
@@ -155,11 +170,9 @@ void setup() {
 //                               Main Loop
 //////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 //
-
-//
+for(int i = 0; i < 25; i++){
+ randomFlipTest();
+} 
+//everything is evert driven so no need for anything in the loop
 void loop() {
-  //poll for serial data
-  randomFlipTest();
-  delay(random(3,5));
-  //byteListener();
 }

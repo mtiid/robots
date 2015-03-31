@@ -67,8 +67,8 @@ fun void allBanks(int arduino, int level){
     //write our byte
     cereal.writeBytes(byte);
     //clear our byte
-    <<<byte[1]>>>;
-    0 => byte[1];
+    <<<byte[0], byte[1]>>>;
+    0 => byte[1] => byte[0];
 }
 
 fun void flipSwitch(int arduino, int bank, int swit){
@@ -83,8 +83,8 @@ fun void flipSwitch(int arduino, int bank, int swit){
     array << 4 => byte[1];
     swit << 1 | byte[1] => byte[1];
     cereal.writeBytes(byte);
-    <<<byte[1]>>>;
-    0 => byte[1];
+    <<<byte[0], byte[1]>>>;
+    0 => byte[1] => byte[0];
 }
 
 fun void poundBank(int arduino, int bank, int switchNum){
@@ -100,8 +100,8 @@ fun void poundBank(int arduino, int bank, int switchNum){
     //now we pack in the switch number into the 2-4 LSB
     switchNum << 1 | byte[1] => byte[1];
     cereal.writeBytes(byte);
-    <<<byte[1]>>>;
-    0 => byte[1];
+    <<<byte[0], byte[1]>>>;
+    0 => byte[1] => byte[0];
 }
 
 fun void swipeBank(int arduino, int bank, float length){
@@ -146,7 +146,7 @@ fun void poller(MidiIn min, int id){
             //pull midi channel and value
             msg.data2 => channel;
             msg.data3 => value;
-            <<<channel>>>;
+            //<<<channel>>>;
             if( channel < 8){
                 Std.ftoi(((value/127) * 6) + 1) => sliders[channel];
             }
@@ -172,9 +172,12 @@ fun void poller(MidiIn min, int id){
             else if (channel == 46){
                 //spork ~playRhythm(rhythmA,knobs[7]);
                 0 => arduinoNum;
+                <<<"Arduino output number changed to ", arduinoNum>>>;
             }
             else if (channel == 58){
                 1 => arduinoNum;
+                <<<"Arduino output number changed to ", arduinoNum>>>;
+                
                 //spork ~playRhythm(rhythmB,knobs[7]);
             }
             else if (channel == 59){
