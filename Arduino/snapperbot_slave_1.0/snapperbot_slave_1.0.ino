@@ -15,6 +15,10 @@
 #define unit8_t FLIP 0
 #define unit8_t LOUD 1
 #define unit8_t VERY 2
+
+//for communicatoin
+#include <Wire.h>
+
 // PORTA, PORTB, PORTC, PORTL
 static int snapper1[8] = {22, 23, 24, 25, 26, 27, 28, 29};
 static int snapper2[8] = {10, 11, 12, 13, 50, 51, 52, 53};
@@ -26,6 +30,34 @@ uint8_t snapperStates[4];//the states of the snappers
 uint8_t incommingByte;
 //for parsing serial
 uint8_t mode;
+
+//
+//////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//                              i2c functions
+//////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//
+
+//////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//                             Setup Loop
+//////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//
+void setup() {
+  Wire.begin(1);//this means the address for the arduino is now 2?
+  Wire.onReceive(triggerEvent);//when the arduino receives a message on its Serial port it will forward the data to the receiveEvent event function
+  //set all pins as output pins
+  for (int i = 0; i < 8; i++) {
+    pinMode(snapper1[i], OUTPUT);
+    pinMode(snapper2[i], OUTPUT);
+    pinMode(snapper3[i], OUTPUT);
+    pinMode(snapper4[i], OUTPUT);
+  }
+  //set them all to high (which is low on the snapper arrays)
+  for (int i = 0; i < 4; i++) {
+    snapperStates[i] = 0xFF;
+  }
+  //write to all the ports at the same time
+  setPorts(4);
+}
 //
 //////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 //                        Intrument Commands
@@ -86,18 +118,18 @@ void loud(uint8_t snapArray, uint8_t level) {
 //                              Serial Stuff
 //////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 //
-void byteListener() {
+void triggerEvent(int port) {
   //if we have serial data in the buffer
-  if (Serial.available()) {
+  if (Wire.available()) {
     //and as long as we have bytes to be read
-    while (Serial.available()) {
+    while (Wire.available()) {
       //parse out the data one byte at a time
-      parseSerial(Serial.read());
+      parseI2C(Wire.read());
     }
   }
 }
 //
-void parseSerial(uint8_t data) {
+void parseI2C(uint8_t data) {
   //the mode is the 2 most significant bits
   mode = (data >> 6);
   if (mode == 0) {
@@ -110,10 +142,12 @@ void parseSerial(uint8_t data) {
     veryLoud(data & 0x38 >> 3);
   }
 }
+
 //////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 //                             Test Loops
 //////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 //
+
 void startupTest() {
   for (int t = 1; t < 9; t++) {
     for (int i = 0; i < 4; i++) {
@@ -127,35 +161,18 @@ void startupTest() {
   }
 }
 
-//////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-//                             Setup Loop
-//////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-//
-void setup() {
-  Serial.begin(57600);
-  //set all pins as output pins
-  for (int i = 0; i < 8; i++) {
-    pinMode(snapper1[i], OUTPUT);
-    pinMode(snapper2[i], OUTPUT);
-    pinMode(snapper3[i], OUTPUT);
-    pinMode(snapper4[i], OUTPUT);
-  }
-  //set them all to high (which is low on the snapper arrays)
-  for (int i = 0; i < 4; i++) {
-    snapperStates[i] = 0xFF;
-  }
-  //write to all the ports at the same time
-  setPorts(4);
-  startupTest();
+void randomFlipTest(){
+  flipSwitch(random(0,4),random(0,8));
 }
+
 //
 //////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 //                               Main Loop
 //////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 //
-
-//
+//for(int i = 0; i < 25; i++){
+// randomFlipTest();
+//} 
+//everything is evert driven so no need for anything in the loop
 void loop() {
-  //poll for serial data
-  byteListener();
 }
