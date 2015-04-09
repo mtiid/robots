@@ -1,7 +1,7 @@
 import serial, time, random, array
 
-snapperBot = serial.Serial('/dev/tty.usbmodem1d1141', 9600, timeout = 0.1)
-time.sleep(1)
+snapperBot = serial.Serial('/dev/cu.usbmodem1a1241', 9600, timeout = 0.1)
+time.sleep(8)
 
 #array.array(randomBot, randomMsg).tostring()
 
@@ -37,8 +37,8 @@ while True:
         randomTest()
     for i in range(0,6):
         for ii in range(0,255):
-            line = snapperBot.readline()
-            print("incomming line : ",line)
+            #line = snapperBot.readline()
+            #print("incomming line : ",line)
             writeSerial(i, ii)
             time.sleep(0.02)
             #print(i, ii)

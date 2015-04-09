@@ -116,10 +116,10 @@ void byteListener() {
       //get rid of any remaining data in buffer, dirty way to keep things clean
       Serial.flush();
       //un comment following lines for troubleshooting
-      Serial.print("Bot Num : ");
-      Serial.print(botNum);
-      Serial.print("Data Byte : ");
-      Serial.println(dataByte);
+      //Serial.print("Bot Num : ");
+      //Serial.print(botNum);
+      //Serial.print("Data Byte : ");
+      //Serial.println(dataByte);
       parseSerial(botNum, dataByte);
     }
     else {

@@ -28,9 +28,6 @@ int byte[3];
 
 int arduinoNum;
 
-
-
-
 [2.0,2.0,2.0,2.0,2.0,2.0,2.0,2.0] @=> float sliders[];
 [50.0,50.0,50.0,50.0,50.0,50.0,50.0,50.0] @=> float knobs[];
 
@@ -142,6 +139,7 @@ fun void playRhythm(int arduino, float rhythm[], float scaler){
         }
     }
 }
+
 fun void serialErrorChecker(){
     cereal.onLine() => now;
     while(1){       
@@ -185,7 +183,6 @@ fun void poller(MidiIn min, int id){
             }
             
             else if (channel == 46){
-                //spork ~playRhythm(rhythmA,knobs[7]);
                 0 => arduinoNum;
                 <<<"Arduino output number changed to ", arduinoNum>>>;
             }
@@ -202,12 +199,12 @@ fun void poller(MidiIn min, int id){
         }
     }
 }
+
 fun void serialListener(){
     
     while(true)
     {
-        cereal.onLine() => now;
-        
+        cereal.onLine() => now;       
         cereal.getLine() => string line;
         
         if(line$Object != null)
@@ -229,8 +226,7 @@ fun void serialTester1(){
     }   
 }
 
-//spork ~serialErrorChecker();
-spork ~ serialListener();
+//spork ~ serialListener();
 spork ~ serialTester1();
 
 while(true)

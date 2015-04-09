@@ -3,7 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 
 def lightSpider():
-    url = 'http://wwlln.net/new/map/'
+    url = 'http://www.lightningmaps.org/realtime'
     sourceCode = requests.get(url)#connect to webpage and store results
     print(sourceCode)
     print("--------------------")
@@ -14,7 +14,6 @@ def lightSpider():
     time.sleep(3)
     soup = BeautifulSoup(plainText)
     print(soup)
-    #script src="http://wwlln.net/new/wordpress/../map/js/lightning.js" type="text/javascript"
-
+    #extract center child number 2 (1 if indexed 0)
 
 lightSpider()

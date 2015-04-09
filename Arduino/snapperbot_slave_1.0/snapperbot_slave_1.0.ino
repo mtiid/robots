@@ -42,7 +42,8 @@ uint8_t mode;
 //////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 //
 void setup() {
-  Wire.begin(1);//this means the address for the arduino is now 2?
+  //this means the address for the arduino is now 1, and it is a slave
+  Wire.begin(1);
   Wire.onReceive(triggerEvent);//when the arduino receives a message on its Serial port it will forward the data to the receiveEvent event function
   //set all pins as output pins
   for (int i = 0; i < 8; i++) {
@@ -131,16 +132,22 @@ void triggerEvent(int port) {
 //
 void parseI2C(uint8_t data) {
   //the mode is the 2 most significant bits
-  mode = (data >> 6);
-  if (mode == 0) {
-    flipSwitch((data & 0x30) >> 4, (1 >> (data & 0x0C)));
-  }
-  else if (mode == 1) {
-    loud((data & 0x30) >> 4, (data & 0x0E) >> 1);
-  }
-  else if (mode == 2) {
-    veryLoud(data & 0x38 >> 3);
-  }
+  /the mode is the 2 most significant bits
+    //shift those bits over 6 spaces and we have the mode
+    mode = (data >> 6);
+    //flip one switch is mode is = 0
+    if (mode == 0) {
+      //apply bitmasks and shift over the bits we are interested in and pass them into flipSwitch
+      flipSwitch((data & 0x30) >> 4, (1 >> (data & 0x0C)));
+    }
+    else if (mode == 1) {
+      //apply bitmasks and shift over the bits we are interested in and pass them into loud
+      loud((data & 0x30) >> 4, (data & 0x0E) >> 1);
+    }
+    else if (mode == 2) {
+      //apply bitmasks and shift over the bits we are interested in and pass them into veryLoud
+      veryLoud(data & 0x38 >> 3);
+    }
 }
 
 //////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
@@ -148,31 +155,49 @@ void parseI2C(uint8_t data) {
 //////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 //
 
+//to make sure all relays are working
 void startupTest() {
   for (int t = 1; t < 9; t++) {
     for (int i = 0; i < 4; i++) {
       loud(i, t);
-      delay(125);
+      delay(30);
     }
   }
   for (int i = 1; i < 9; i++) {
     veryLoud(i);
-    delay(250);
+    delay(62);
   }
 }
-
-void randomFlipTest(){
-  flipSwitch(random(0,4),random(0,8));
+//flip a random switch on a random array
+void randomFlipTest() {
+  flipSwitch(random(0, 4), random(0, 8));
 }
-
+//send random messages to salvebots to test iic
+void testiic() {
+  for (uint8_t i = 1; i < 6; i++) {
+    for (uint8_t t = 0; t < 255; t++) {
+      sendI2C(i, t);
+      delay(20);
+    }
+  }
+}
+//test a specific slavebot
+void testBot(int botNum, int time) {
+  for (int i = 0; i < 255; i++) {
+    sendI2C(botNum, i);
+    delay(time);
+  }
+}
+//test a specific switch on a slavebot
+void testSwitch(int botNum, int switchNum) {
+  sendI2C(botNum, switchNum);
+}
 //
 //////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 //                               Main Loop
 //////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 //
-//for(int i = 0; i < 25; i++){
-// randomFlipTest();
-//} 
+
 //everything is evert driven so no need for anything in the loop
 void loop() {
 }
