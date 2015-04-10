@@ -25,7 +25,7 @@ static int snapper4[8] = {42, 43, 44, 45, 46, 47, 48, 49};
 //the states of the snappers
 uint8_t snapperStates[4];
 //the incomming messages
-uint8_t dataByte;
+byte dataBytes[3];
 //for parsing serial
 uint8_t mode;
 uint8_t botNum;
@@ -81,11 +81,9 @@ void flipSwitch(uint8_t array, uint8_t swit) {
 //
 void veryLoud(uint8_t level) {
   //for each array of snapperbots
-  uint8_t mask;
-  mask = 255 >> (8 - level);
   for (int i = 0; i < 4; i++) {
     //change the snapper states to the proper level
-    snapperStates[i] ^= mask;
+    snapperStates[i] ^= (255 >> (8 - level));
   }
   //write to all the ports at once
   setPorts(4);
@@ -104,33 +102,29 @@ void loud(uint8_t snapArray, uint8_t level) {
 //
 void byteListener() {
   //if we have serial data in the buffer
-  if (Serial.available()) {
-    //read the first byte
-    uint8_t flag = Serial.read();
-    //if it is equal to our flag value
-    if (flag == 0xff) {
-      //read the second byte, which is the bot number
-      botNum = Serial.read();
-      //read the second byte, which is the actual message byte
-      dataByte = Serial.read();
-      //get rid of any remaining data in buffer, dirty way to keep things clean
-      //Serial.flush();
-      //un comment following lines for troubleshooting
-      //Serial.print("Bot Num : ");
-      //Serial.print(botNum);
-      //Serial.print("Data Byte : ");
-      //Serial.println(dataByte);
-      parseSerial(botNum, dataByte);
-    }
-    else {
-      //if the first byte is not equal to our flag value flush data in buffer
-      //Serial.flush();
+  while (Serial.available()) {
+    if (Serial.available()) {
+
+      //read the first byte
+      Serial.readBytes((char*)dataBytes, 3);
+      //if it is equal to our flag value
+      if (dataBytes[0] == 0xff) {
+        //Serial.print("Bot Num : ");
+        //Serial.print(dataBytes[1]);
+        //Serial.print("Data Byte : ");
+        //Serial.println(dataBytes[2]);
+        parseSerial(dataBytes[1], dataBytes[2]);
+      }
+      else {
+        Serial.flush();
+      }
     }
   }
 }
 //
-void parseSerial(uint8_t botNum, uint8_t data) {
+void parseSerial(byte botNum, byte data) {
   //the masterbot is bot 0
+
   if (botNum == 0) {
     //the mode is the 2 most significant bits
     //shift those bits over 6 spaces and we have the mode
@@ -158,30 +152,30 @@ void parseSerial(uint8_t botNum, uint8_t data) {
 //                             Test Loops
 //////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 //
-
-//to make sure all relays are working
-void startupTest() {
-  for (int t = 1; t < 9; t++) {
-    for (int i = 0; i < 4; i++) {
-      loud(i, t);
-      delay(30);
-    }
-  }
-  for (int i = 1; i < 9; i++) {
-    veryLoud(i);
-    delay(62);
-  }
-}
 //flip a random switch on a random array
 void randomFlipTest() {
   flipSwitch(random(0, 4), random(0, 8));
 }
 //send random messages to salvebots to test iic
-void testiic() {
-  for (uint8_t i = 1; i < 6; i++) {
-    for (uint8_t t = 0; t < 255; t++) {
-      sendI2C(i, t);
-      delay(4);
+void startupTest() {
+  for (uint8_t i = 0; i < 6; i++) {
+    if (i == 0) {
+      for (int t = 1; t < 9; t++) {
+        for (int i = 0; i < 4; i++) {
+          loud(i, t);
+          delay(13);
+        }
+      }
+      for (int i = 1; i < 9; i++) {
+        veryLoud(i);
+        delay(27);
+      }
+    }
+    else {
+      for (uint8_t t = 30; t < 225; t++) {
+        sendI2C(i, t);
+        delay(3);
+      }
     }
   }
 }
@@ -219,7 +213,6 @@ void setup() {
   //write to all the ports at the same time
   setPorts(4);
   startupTest();
-  testiic();
 }
 //
 //////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
