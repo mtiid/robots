@@ -25,7 +25,7 @@ static int snapper4[8] = {42, 43, 44, 45, 46, 47, 48, 49};
 //the states of the snappers
 uint8_t snapperStates[4];
 //the incomming messages
-uint8_t dataByte;
+byte dataBytes[3];
 //for parsing serial
 uint8_t mode;
 uint8_t botNum;
@@ -105,32 +105,31 @@ void loud(uint8_t snapArray, uint8_t level) {
 void byteListener() {
   //if we have serial data in the buffer
   if (Serial.available()) {
+    
     //read the first byte
-    uint8_t flag = Serial.read();
+    Serial.readBytes((char*)dataBytes, 3); 
     //if it is equal to our flag value
-    if (flag == 0xff) {
-      //read the second byte, which is the bot number
-      botNum = Serial.read();
-      //read the second byte, which is the actual message byte
-      dataByte = Serial.read();
-      //get rid of any remaining data in buffer, dirty way to keep things clean
-      //Serial.flush();
-      //un comment following lines for troubleshooting
+    if (dataBytes[0] == 0xff) {
       //Serial.print("Bot Num : ");
       //Serial.print(botNum);
       //Serial.print("Data Byte : ");
       //Serial.println(dataByte);
-      parseSerial(botNum, dataByte);
+      if (dataBytes[1] == 0) {
+        digitalWrite(13, HIGH);
+      }
+      if (dataBytes[1] == 1) {
+        digitalWrite(13, LOW);
+      }      //parseSerial(dataBytes[1], dataBytes[2]);
     }
-    else {
-      //if the first byte is not equal to our flag value flush data in buffer
-      //Serial.flush();
-    }
+    //else {
+    //  Serial.flush();
+    //}
   }
 }
 //
-void parseSerial(uint8_t botNum, uint8_t data) {
+void parseSerial(byte botNum, byte data) {
   //the masterbot is bot 0
+  
   if (botNum == 0) {
     //the mode is the 2 most significant bits
     //shift those bits over 6 spaces and we have the mode

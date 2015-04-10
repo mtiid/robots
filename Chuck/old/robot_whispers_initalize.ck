@@ -1,4 +1,5 @@
 SerialIO.list() @=> string list[];
+int ctr;
 
 for(int i; i < list.cap(); i++)
 {
@@ -6,7 +7,7 @@ for(int i; i < list.cap(); i++)
 }
 
 SerialIO cereal;
-cereal.open(5, SerialIO.B9600, SerialIO.BINARY);
+cereal.open(2, SerialIO.B9600, SerialIO.BINARY);
 
 int mbuttons[8];
 int rbuttons[8];
@@ -68,9 +69,10 @@ fun void poundBank(int arduino, int bank, int switchNum){
     (bank << 4) | byte[2] => byte[2];
     //now we pack in the switch number into the 2-4 LSB
     switchNum << 1 | byte[2] => byte[2];
+    (ctr + 1) % 2 => ctr;    
     cereal.writeBytes(byte);
     <<<byte[0], byte[1], byte[2]>>>;
-    0 => byte[2] => byte[1];
+    0 =>  byte[2] => byte[1];
     255 => byte[0];
 }
 
@@ -144,5 +146,6 @@ spork ~ oscListener();
 
 while(true)
 {
+    poundBank(Math.random2(0,6), Math.random2(0,4),Math.random2(0, 7));
     93::ms => now;
 }

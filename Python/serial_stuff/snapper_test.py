@@ -1,6 +1,7 @@
 import serial, time, random, array
 
-snapperBot = serial.Serial('/dev/cu.usbmodem1a1241', 9600, timeout = 0.1)
+snapperBot = serial.Serial('/dev/tty.usbmodem1411', 9600, timeout = 0.1)
+
 time.sleep(8)
 
 #array.array(randomBot, randomMsg).tostring()
