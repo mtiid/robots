@@ -2,7 +2,7 @@ import serial, time, random, array
 #imports for OSC
 import OSC, threading
 #Serial initalize
-snapperBot = serial.Serial('/dev/tty.usbmodem1421', 9600, timeout = 0.1)
+snapperBot = serial.Serial('/dev/ttyACM0', 9600, timeout = 0.1)
 
 time.sleep(6)
 
