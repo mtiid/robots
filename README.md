@@ -19,15 +19,15 @@ To connect using ChucK using OSC with a LAN connection:
 
     ("chuckServer.local", 50000) => out.dest;
 
-*IT IS NOT RECOMMENEDED TO CONNECT WIRELESSLY*
-*ONLY DO SO IF YOU WANT DROPPED OSC MESSAGES*
+**IT IS NOT RECOMMENEDED TO CONNECT WIRELESSLY**
+**ONLY DO SO IF YOU WANT DROPPED OSC MESSAGES**
 
-~Or to connect wirelessly:~
+~~Or to connect wirelessly:~~
 
-    ~OscOut out;~
+    ~~OscOut out;~~
     
-    ~// this ip will change every once in a while~
-    ~("10.2.35.254", 50000) => out.dest;~
+    ~~// this ip will change every once in a while~~
+    ~~("10.2.35.254", 50000) => out.dest;~~
 
 To send to a robot using its OSC address.
 
