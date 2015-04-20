@@ -1,8 +1,8 @@
-// wireless.ck
+// hub.ck
 // Eric Heep
 // CalArts Music Tech // MTIID4LIFE
 
-// wireless (or wired) in
+// wired in
 OscIn in;
 OscMsg msg;
 
