@@ -3,12 +3,25 @@ robots
 
 There are currently two servers, one for the hiduino bots (ceiling bots), and one for the serial bots (piano, marimba).
 
-The two servers should always be left running, but in the case that they aren't, you'll need to open terminal and run the master.ck files for both servers.
+The two servers should always be left running. In the case that they aren't, simply type the following into terminal.
 
-You can simply copy/paste this code into terminal.
+    robots
 
-    chuck ~/git/robots/hiduino-robot-server/master.ck &
-    chuck ~/git/robots/serial-robot-server/master.ck
+This will run a bash function that kills any running ChucK programs, and then starts the server.
+
+    robots() {
+        SERVICE='chuck'
+         
+        if ps ax | grep -v grep | grep $SERVICE > /dev/null
+        then
+            echo "$SERVICE killing running chuck programs"
+            killall chuck
+        fi
+
+        chuck ~/git/robots/serial-robot-server/master.ck --port:8888 &
+        chuck ~/git/robots/hiduino-robot-server/master.ck --port:8889
+    }
+
 
 communication
 -------------
