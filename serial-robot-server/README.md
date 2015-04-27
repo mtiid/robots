@@ -1,4 +1,4 @@
-robot-serial-server
+serial-robot-server
 ===================
 Written by Eric Heep in the summer of 2014, jointly maintained by CalArts Music Tech.
 

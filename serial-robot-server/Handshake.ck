@@ -62,7 +62,6 @@ public class Handshake {
             serial[i].getByte() => int arduinoID;
             arduinoID => robotID[i];
         }
-        
     }
 
     // bitwise operations, allows note numbers 0-63 and note velocities 0-1023

@@ -13,9 +13,24 @@ public class MDarimBot extends SerialBot {
      57,59,60,62,64,65,66,67,
      69,71,72,74,76,77,78,79,
      81,83,84,86,88,89,90,91,
-     93,95,96] @=> int scl[];
+     93,95,96,97] @=> int scl[];
 
-    rescale(scl);
+
+    // order of working actuators
+    /*[ 0, 1, 2, 3, 4, 5, 6, 7,
+      8, 9,10,11,12,13,14,15,
+     16,17,18,19,20,21,22,23,
+     24,25,26,27,28,29,30,31,
+     32,33,34,37] @=> int actuatorOrder[];
+     */
+
+    [ 6, 7, 8, 9,10,11,18,19,
+     21,22,23,30,31,32,33,34,
+      0, 1, 2, 3, 4, 5,12,13,
+     14,15,16,17,24,25,26,27,
+     28,29,35,36] @=> int actuatorOrder[];
+     
+    rescale(scl, actuatorOrder);
 
     0 => int ID;
     "/marimba" => string address;

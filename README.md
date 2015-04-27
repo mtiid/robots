@@ -3,28 +3,38 @@ robots
 
 There are currently two servers, one for the hiduino bots (ceiling bots), and one for the serial bots (piano, marimba).
 
-The two servers should always be running, but if they aren't, go to terminal and run the master.ck files for both servers, you can copy/paste this code into terminal.
+The two servers should always be left running. In the case that they aren't, simply type the following into terminal.
 
-    chuck ~/git/robots/hiduino-robot-server/master.ck &
-    chuck ~/git/robots/serial-robot-server/master.ck
+    robots
+
+This will run a bash function that kills any running ChucK programs, and then starts the server.
+
+    robots() {
+        SERVICE='chuck'
+         
+        if ps ax | grep -v grep | grep $SERVICE > /dev/null
+        then
+            echo "$SERVICE killing running chuck programs"
+            killall chuck
+        fi
+
+        chuck ~/git/robots/serial-robot-server/master.ck --port:8888 &
+        chuck ~/git/robots/hiduino-robot-server/master.ck --port:8889
+    }
+
 
 communication
 -------------
 
-To connect using ChucK via OSC:
+To connect using ChucK using OSC with a LAN connection:
 
     OscOut out;
 
     ("chuckServer.local", 50000) => out.dest;
 
-Or to connect wirelessly:
+**IT IS NOT RECOMMENEDED TO CONNECT WIRELESSLY**
 
-    OscOut out;
-    
-    // this ip will change every once in a while
-    ("10.2.35.254", 50000) => out.dest;
-
-Then to send to a robot using its OSC address, usually similar to it's name.
+To send to a robot using its OSC address.
 
     out.start("/clappers");
     out.add(note);
@@ -47,13 +57,14 @@ A full list of robots by their OSC addresses
     /trimpspin
     /trimpbeat
 
-To connect using MIDI, see the [midi-robot-client](https://github.com/MTIID/midi-robot-client) repo.
+To connect using MIDI, see the [midi-robot-client](https://github.com/MTIID/robots/tree/master/midi-robot-client) repo.
 
 quick-test-code
 ---------------
+Copy/paste this to quickly see if you can successfully connect.
 
     OscOut out;
-    ("10.2.35.245", 50000) => out.dest;
+    ("chuckServer.local", 50000) => out.dest;
 
     while(true) {
         out.start("/clappers");
@@ -66,10 +77,10 @@ quick-test-code
 programmers
 -----------
 
-hiduino-robot-server and midi-robot-client written by Ness Morris and Bruce Lott in the winter of 2013-2014. 
+hiduino-robot-server and midi-robot-client written by Ness Morris and Bruce Lott in the winter of 2013-2014
 
-hiduino-robot-server based on code by Ajay Kapur, Owen Vallis, and Dimitri Diakopoulos.
+hiduino-robot-server based on code by Ajay Kapur, Owen Vallis, and Dimitri Diakopoulos
 
-serial-robot-server written by Eric Heep in the summer of 2014, currently maintained by Eric Heep.
+serial-robot-server written by Eric Heep in the summer of 2014, currently maintained by Eric Heep
 
 If there are any issues connecting or adding a robot to the server, email ericheep@alum.calarts.edu
