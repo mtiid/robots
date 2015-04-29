@@ -1,4 +1,4 @@
-// phase.ck
+// 5-minute-phase.ck
 
 // Eric Heep
 // April, 2015
@@ -26,6 +26,7 @@ fun void note(int num, string addr) {
 
 fun void phase(int num_notes, dur total, dur cycle) {
     (total/cycle) $ int => int num_cycles;
+
     if (total/cycle != num_cycles) {
         num_cycles * cycle => total;
         <<< "Total time is not divisible by the cycle time, calculating a new total of", total/minute, "minutes" >>>;
