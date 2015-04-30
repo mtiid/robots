@@ -14,7 +14,7 @@ OscOut out;
 fun void note(int num, string addr) {
     out.start(addr);
     out.add(num);
-    out.add(60);
+    out.add(100);
     out.send();
 }
 
@@ -27,7 +27,8 @@ SystemTime sys;
 81,83,84,86,88,89,90,91,
 93,95] @=> int notes[];
 
-fun dur[] incrementCalc(dur total, dur cycle, int num) {
+// finds the durations for each actuator, adjusts if given improper values
+fun dur[] incrementCalculation(dur total, dur cycle, int num) {
     (total/cycle) $ int => int iterations;
 
     if (total/cycle != iterations) {
@@ -48,9 +49,10 @@ fun dur[] incrementCalc(dur total, dur cycle, int num) {
     return increments;
 }
 
+// main program, resyncs chuck to the system clock every so often
 fun void phaseClock(dur total, dur cycle, dur sync, int num) {
 
-    incrementCalc(total, cycle, num) @=> dur increments[];
+    incrementCalculation(total, cycle, num) @=> dur increments[];
    
     dur offsets[num];
     for (int i; i < num; i++) {
@@ -66,24 +68,20 @@ fun void phaseClock(dur total, dur cycle, dur sync, int num) {
 
         Math.round(sys.ftime() % (total/second)) $ int => int iterations;
         for (int i; i < num; i++) {
-            spork ~ phase(increments[i], offsets[i], iterations, repeats, i);
+            spork ~ phaseNote(increments[i], offsets[i], iterations, repeats, i);
         }
 
         sync + nudge => now;
         (Math.round(sys.ftime()) - sys.ftime())::second => nudge;
-
     }
 }
 
-fun void phase(dur increment, dur offset, int iterations, int repeats, int idx) {
-    offset * iterations => dur wait;
-    wait => now;
+// phases each note for the set sync time, then resyncs and continues
+fun void phaseNote(dur increment, dur offset, int iterations, int repeats, int idx) {
+    offset * iterations => now;
 
     for (int i; i < repeats; i++) {
-        note(notes[idx], "/marimba");
-        if (idx == 0) {
-            <<< "hit", i, "" >>>;
-        }
+        note(notes[(notes.size() - 1) - idx], "/marimba");
         increment => now; 
     }
 }
