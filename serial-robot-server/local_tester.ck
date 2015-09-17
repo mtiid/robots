@@ -12,11 +12,12 @@ OscOut oout;
  93,95,96] @=> int mscl[];
 
 while (true) {
-    oout.start("/marimba");
-    oout.add(Math.random2(0,20) + 60);
-    oout.add(127);
-    oout.send();
-    0.1::second => now;
-    <<< "!" >>>;
+    for (0 => int i; i < mscl.size(); i++) {
+        oout.start("/marimba");
+        oout.add(mscl[i]);
+        oout.add(127);
+        oout.send();
+        0.25::second => now;
+    }
 }
 
