@@ -11,7 +11,7 @@ This will run a bash function that kills any running ChucK programs, and then st
 
     robots() {
         SERVICE='chuck'
-         
+
         if ps ax | grep -v grep | grep $SERVICE > /dev/null
         then
             echo "$SERVICE killing running chuck programs"
@@ -27,6 +27,7 @@ communication
 -------------
 
 **IT IS NOT RECOMMENEDED TO CONNECT WIRELESSLY**
+
 While it is entirely possible to connect using the wireless network, you will definitely experience lag and dropped OSC messages.
 
 To connect using ChucK using OSC with a LAN connection:
