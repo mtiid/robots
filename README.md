@@ -46,7 +46,7 @@ To send to a robot using its OSC address.
 A full list of robots by their OSC addresses
 
     // hiduino robots
-    /drumbot
+    /drumBot
     /clappers
     /ganapati
     /jackbass
