@@ -15,19 +15,19 @@ int status, chan, noteNum, vel;
 
 <<<"","">>>;
 // choose which IAC bus to use
-if(me.args()){ 
+if(me.args()){
     if(min.open(Std.atoi(me.arg(0)))){ // open argument as IAC bus
         <<<"Successfully connected to",min.name()+"!">>>;
     }
 }
-else if(min.open("IAC Driver IAC Bus 1")){ // default name of a new IAC bus 
+else if(min.open("IAC Driver IAC Bus 1")){ // default name of a new IAC bus
     <<<"Successfully connected to", min.name() +"!">>>;
 }
 else <<<"Failed to open IAC Bus","">>>;
 <<<"","">>>;
 
 // connect to robot server
-//xmit.setHost("chuckServer.local",11235); 
+//xmit.setHost("chuckServer.local",11235);
 ("chuckServer.local",11235) => oout.dest;
 
 
@@ -99,17 +99,17 @@ fun void midiLoop(){
                     }
                 }
                 if(chan==7){ // MDarimBot
-                    oout.start("/MDarimBot");
+                    oout.start("/marimba");
                     oscOut(noteNum, vel);
                 }
                 if(chan==8){ // Trimpbeat
-                    oout.start("/Trimpbeat");
+                    oout.start("/trimpbeat");
                     oscOut(noteNum, vel);
                 }
                 if(chan==9){ // Trimpspin
-                    oout.start("/Trimpspin");
+                    oout.start("/trimpspin");
                     oscOut(noteNum, vel);
-                } 
+                }
             }
             if(status==8){ // note off
                 if(chan==5){ // jackbox bass

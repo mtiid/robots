@@ -38,7 +38,7 @@ Copy the following code into a blank ChucK script, or open the over-actuate.ck s
 
 Count the number of people participating, then chuck that into the `participants` variable.
 
-If you are connected to the network using a LAN cable, the above code should work just fine. If you are connecting wirelessly, replace the string of the `out.dest` with the IP on whatever network you are using.
+The IP of the network may change, this is only an issue if you are connecting wirelessy. If so, open up the network preferences on the server.
 
 directions
 ----------
