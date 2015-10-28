@@ -40,6 +40,12 @@ spork ~ midiLoop();
 
 while(samp=>now);
 
+[45,47,48,50,52,53,54,55,
+ 57,59,60,62,64,65,66,67,
+ 69,71,72,74,76,77,78,79,
+ 81,83,84,86,88,89,90,91,
+ 93,95,96,97] @=> int marimbaScale[];
+
 // main loop
 fun void midiLoop(){
     while(min=>now){
@@ -99,8 +105,13 @@ fun void midiLoop(){
                     }
                 }
                 if(chan==7){ // MDarimBot
-                    oout.start("/marimba");
-                    oscOut(noteNum, vel);
+                    //for (int i; i < marimbaScale.size(); i++) {
+                    //    if (marimbaScale[i] == noteNum) {
+                            oout.start("/marimba");
+                            serialOscOut(noteNum, vel);
+                            <<< status, chan, noteNum >>>;
+                    //    }
+                    //}
                 }
                 if(chan==8){ // Trimpbeat
                     oout.start("/trimpbeat");
@@ -133,6 +144,12 @@ fun void midiLoop(){
             }
         }
     }
+}
+
+fun void serialOscOut(int newNoteNum, int newVel){
+    oout.add(newNoteNum);
+    oout.add(newVel);
+    oout.send();
 }
 
 fun void oscOut(int newNoteNum, int newVel){
