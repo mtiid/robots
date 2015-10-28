@@ -9,7 +9,7 @@
 MidiIn min;
 MidiMsg msg;
 //OscSend xmit;
-OscOut oout:
+OscOut oout;
 
 int status, chan, noteNum, vel;
 
