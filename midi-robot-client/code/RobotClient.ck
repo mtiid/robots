@@ -9,7 +9,7 @@
 MidiIn min;
 MidiMsg msg;
 //OscSend xmit;
-OscOut oout:
+OscOut oout;
 
 int status, chan, noteNum, vel;
 
@@ -138,7 +138,7 @@ fun void midiLoop(){
 fun void oscOut(int newNoteNum, int newVel){
     oout.add(newNoteNum - 60);
     oout.add(newVel);
-    oout.send()
+    oout.send();
     // xmit.addInt(newNoteNum-60);
     // xmit.addInt(newVel);
 }
