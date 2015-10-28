@@ -28,7 +28,7 @@ else <<<"Failed to open IAC Bus","">>>;
 
 // connect to robot server
 //xmit.setHost("chuckServer.local",11235);
-("chuckServer.local",11235) => oout.dest;
+("chuckServer.local",50000) => oout.dest;
 
 
 // spork main loop
@@ -127,7 +127,7 @@ fun void midiLoop(){
                     }
                 }
                 if(chan==9){ //Trimpspin
-                    oout.start("/Trimpspin");
+                    oout.start("/trimpspin");
                     oscOut(noteNum, 0);
                 }
             }
