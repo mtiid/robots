@@ -25,15 +25,15 @@ while(true){    // print device list
 chout <= IO.nl();
 
 int iacIn;
-numericConsoleChoice(0,devicesIn,"Type your IAC Bus's number: ") => iacIn;
-Machine.add("RobotClient.ck:"+iacIn);
+numericConsoleChoice(0, devicesIn, "Type your IAC Bus's number: ") => iacIn;
+Machine.add("RobotClient.ck:" + iacIn);
 
 // function
 
 fun int numericConsoleChoice(int minChoice,int maxChoice,string prompt){
     -1 => int val;
     string s;
-    while(val<minChoice | val>maxChoice){
+    while(val < minChoice | val > maxChoice){
         cI.prompt(prompt);
         while(cI.more()){ 
             cI.getLine() => s;    // RegEx filters out non-digits (thanks Ness!)
