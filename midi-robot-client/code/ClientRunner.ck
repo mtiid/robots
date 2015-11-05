@@ -28,8 +28,6 @@ int iacIn;
 numericConsoleChoice(0, devicesIn, "Type your IAC Bus's number: ") => iacIn;
 Machine.add("RobotClient.ck:" + iacIn);
 
-min.close();
-
 // function
 
 fun int numericConsoleChoice(int minChoice,int maxChoice,string prompt){
