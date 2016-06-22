@@ -11,20 +11,23 @@ MidiMsg msg;
 OscOut oout;
 
 int status, chan, noteNum, vel;
+0 => int show_message;
 
-<<<"","">>>;
 // choose which IAC bus to use
 if(me.args()){
-    if(min.open(Std.atoi(me.arg(0)))){ 
-        // open argument as IAC bus
-        <<<"Successfully connected to",min.name()+"!">>>;
+    if (me.arg(0) == null) {
+        if(min.open(Std.atoi(me.arg(0)))){
+            // open argument as IAC bus
+            <<<"Successfully connected to",min.name()+"!">>>;
+        }
     }
 }
-else if(min.open("IAC Driver IAC Bus 1")){ 
+else if(min.open("IAC Driver Robots")){
     // default name of a new IAC bus
     <<<"Successfully connected to", min.name() +"!">>>;
 }
 else <<<"Failed to open IAC Bus","">>>;
+
 <<<"","">>>;
 
 // connect to robot server
@@ -36,8 +39,8 @@ spork ~ midiLoop();
 
 // confirm setup completion
 // good luck time
-10::second => now; 
-<<<"If you didn't get any errors, you should be good to go!","">>>;
+// 10::second => now;
+// <<<"If you didn't get any errors, you should be good to go!","">>>;
 
 while(samp=>now);
 
@@ -60,65 +63,65 @@ fun void midiLoop(){
                     if(noteNum > 59 & noteNum < 74){
                         oout.start("/devibot");
                         oscOut(noteNum, vel);
-                        <<< "/devibot", noteNum - 60, vel >>>;
+                        if (show_message) <<< "/devibot", noteNum - 60, vel >>>;
                     }
                 }
                 if(chan==1){ // gana pati
                     if(noteNum > 59 & noteNum < 71){
                         oout.start("/ganipati");
                         oscOut(noteNum, vel);
-                        <<< "/ganipati", noteNum - 60, vel >>>;
+                        if (show_message) <<< "/ganipati", noteNum - 60, vel >>>;
                     }
                 }
                 if(chan==2){ // breakbot
                     if(noteNum > 59 & noteNum < 86){
                         oout.start("/drumBot");
                         oscOut(noteNum, vel);
-                        <<< "/drumBot", noteNum - 60, vel >>>;
+                        if (show_message) <<< "/drumBot", noteNum - 60, vel >>>;
                     }
                 }
                 if(chan==3){ // clappers
                     if(noteNum>59 & noteNum<81){
                         oout.start("/clappers");
                         oscOut(noteNum, vel);
-                        <<< "/clappers", noteNum - 60, vel >>>;
+                        if (show_message) <<< "/clappers", noteNum - 60, vel >>>;
                     }
                 }
                 if(chan==4){ // jackbox percussion
                     if(noteNum>59 & noteNum<89){
                         oout.start("/jackperc");
                         oscOut(noteNum, vel);
-                        <<< "/jackperc", noteNum - 60, vel >>>;
+                        if (show_message) <<< "/jackperc", noteNum - 60, vel >>>;
                     }
                 }
                 if(chan==5){ // jackbox bass
                     if(noteNum>59-8 & noteNum<84-8){
                         oout.start("/jackbass");
                         oscOut(noteNum + 8, vel);
-                        <<< "/jackbass", noteNum + 8 - 60 >>>;
+                        if (show_message) <<< "/jackbass", noteNum + 8 - 60 >>>;
                     }
                 }
                 if(chan==6){ // jackbox guitar
                     if(noteNum>59-8 & noteNum<94-8){
                         oout.start("/jackgtr");
                         oscOut(noteNum + 8, vel);
-                        <<< "/jackgtr", noteNum + 8 - 60, vel >>>;
+                        if (show_message) <<< "/jackgtr", noteNum + 8 - 60, vel >>>;
                     }
                 }
                 if(chan==7){ // MDarimBot
                     oout.start("/marimba");
-                    serialOscOut(noteNum, vel);   
-                    <<< "/marimba", noteNum, vel >>>;               
+                    serialOscOut(noteNum, vel);
+                    if (show_message) <<< "/marimba", noteNum, vel >>>;
                 }
                 if(chan==8){ // Trimpbeat
                     oout.start("/trimpbeat");
                     serialOscOut(noteNum, vel);
-                    <<< "/trimpbeat", noteNum, vel >>>;
+                    if (show_message) <<< "/trimpbeat", noteNum, vel >>>;
                 }
                 if(chan==9){ // Trimpspin
                     oout.start("/trimpspin");
                     serialOscOut(noteNum, vel);
-                    <<< "/trimpspin", noteNum, vel >>>;
+                    if (show_message) <<< "/trimpspin", noteNum, vel >>>;
                 }
             }
             if(status==8){ // note off
