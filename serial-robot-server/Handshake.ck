@@ -57,9 +57,11 @@ public class Handshake {
     fun void handshake() {
         [255, 255, 255] @=> int ping[];
         for (int i ; i < serial.cap(); i++) {
+            // <<< "Testing port : ", i>>>;
             serial[i].writeBytes(ping);
             serial[i].onByte() => now;
             serial[i].getByte() => int arduinoID;
+            // <<< "arduin id : ", arduinoID>>>;
             arduinoID => robotID[i];
         }
     }
