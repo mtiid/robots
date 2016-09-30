@@ -2,7 +2,7 @@ OscOut out;
 ("chuckServer.local", 50000) => out.dest;
 
 fun void clapperPlay(int note, int vel){
-    out.start("/clapper");
+    out.start("/clappers");
     out.add(note);
     out.add(vel);
     out.send();
