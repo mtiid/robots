@@ -113,35 +113,35 @@ while(true) {
          // 2 is the small cymbal
          // 3 is the med cymbal
          // 4 is the large cymbal
-         // 5 is the small bongo
-         // 6 is the large (loose) bongo
-         // 7 is the large (tight) bongo
+         // 5 is the small sonic smash
+         // 6 is the large (loose) sonic smash
+         // 7 is the large (tight) sonic smash
          // 8-15 is the xylophone (8 is highest pitch)
-         <<< "glass:", i >>>;
+         <<< "perc:", i >>>;
+         // velocity is 0-127
          percPlay(i, 100); 
          0.08::second => now;
-         guitarPlay(i, 0);
-         0.08::second => now;
+         percPlay(i, 0);
      } 
      
      // Jackbox Guitar test
      // 0-33 is active range
      for(0 => int i; i < 34; i++){
          <<< "guitar:", i >>>;
+         //velocity is 0-127
          guitarPlay(i, 127); 
          0.1::second => now;
          guitarPlay(i, 0);
-         //0.13::second => now;
     } 
     
     // Jackbox Bass test
     // 0-23 is the active range
     for(0 => int i; i < 24; i++){
         <<< "bass:", i >>>;
+        // velocity is 0-127
         bassPlay(i, 127); 
         0.13::second => now;
         bassPlay(i, 0);
-        //0.2::second => now;
     }     
     
 	// Trimpbeat test
@@ -150,7 +150,6 @@ while(true) {
 	    tbPlay(tbScl[i], 127);     
 	    0.1::second => now;
 	    tbPlay(tbScl[i], 0);
-	    //0.01::second => now;
 	} 
     
     // ganapai test
