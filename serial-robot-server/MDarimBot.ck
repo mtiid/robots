@@ -22,7 +22,9 @@ public class MDarimBot extends SerialBot {
      16,17,18,19,20,21,22,23,
      24,25,26,27,28,29,30,31,
      32,33,34,37] @=> int actuatorOrder[];
+     */
 
+    /*
     // Erics remap
     [ 6, 7, 8, 9,10,11,18,19,
      21,22,23,30,31,32,33,34,
@@ -33,16 +35,16 @@ public class MDarimBot extends SerialBot {
 
     // Nathans re-remap
     [6, 7, 8, 5, 10, 14, 12, 13, 11, 15,
-     16, 17, 18, 19, 20, 21, 22, 23, 28,
-     24, 25, 26, 27, 30, 29, 34, 31, 32,
-     33, 0, 1, 3, 2, 9, 4] @=> int actuatorOrder[];
+     16, 17, 18, 34, 19, 21, 22, 23, 24,
+     25, 26, 27, 28, 29, 30, 31, 32, 33, 
+     0, 1, 3, 2, 9, 4, 20, 35] @=> int actuatorOrder[];
      
     rescale(scl, actuatorOrder);
 
     0 => int ID;
     "/marimba" => string address;
     IDCheck(ID, address) => int check;
-    if (check >= 0) {
+    if (check >= 0 & check < 34) {
         spork ~ oscrecv(check, address);
     }
 }
