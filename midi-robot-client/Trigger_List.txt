@@ -71,6 +71,7 @@ Channel 5
 66: Bongo 1
 67: Bongo 2
 68-75: Glockenspiel C Major Scale
+76-87: Glasses
 
 Jackbox Bass:
 Channel 6

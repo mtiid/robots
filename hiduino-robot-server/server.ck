@@ -13,7 +13,6 @@ Clappers clap;
 JackGuitar jtar;
 JackBass jbas;
 JackPerc jperc;
-SnapperBots sbots;
 
 OscRecv orec;
 11235=>orec.port;
@@ -34,7 +33,7 @@ clap.init(orec,toClient);
 jtar.init(orec,toClient);
 jbas.init(orec,toClient);
 jperc.init(orec,toClient);
-sbots.init(orec, toClient);
+
 spork~clientLoop();
 spork~resetClientsLoop();
 while(2::second=>now){

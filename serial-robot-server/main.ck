@@ -14,7 +14,8 @@ talk.talk.init();
 MDarimBot m;
 Trimpbeat b;
 Trimpspin s;
-SnapperBots n;
+SnapperBots sb;
+StringThing st;
 
 while (true) {
     1::second => now;
