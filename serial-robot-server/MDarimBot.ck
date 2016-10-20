@@ -35,10 +35,10 @@ public class MDarimBot extends SerialBot {
 
     // Nathans re-remap
     [6, 7, 8, 5, 10, 14, 12, 13, 11, 15,
-     16, 17, 18, 34, 19, 21, 22, 23, 24,
+     16, 17, 18, 20, 19, 21, 22, 23, 35,
      25, 26, 27, 28, 29, 30, 31, 32, 33, 
-     0, 1, 3, 2, 9, 4, 20, 35] @=> int actuatorOrder[];
-     
+     0, 1, 3, 2, 9, 4, 20, 34] @=> int actuatorOrder[];
+
     rescale(scl, actuatorOrder);
 
     0 => int ID;

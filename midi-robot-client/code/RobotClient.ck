@@ -120,6 +120,43 @@ fun void midiLoop(){
                     serialOscOut(noteNum, vel);
                     <<< "/trimpspin", noteNum, vel >>>;
                 }
+                if(chan==10){ // StringThing 
+                    oout.start("/stringthing");
+                    serialOscOut(noteNum, vel);
+                    <<< "/stringthing", noteNum, vel >>>;
+                }
+                if(chan==11){ // Snapperbots
+                    if (noteNum < 4){
+                    oout.start("/snapperbot1");
+                    serialOscOut(noteNum, vel);
+                    <<< "/snapperbot1", noteNum, vel >>>;
+                    }
+                    if (noteNum < 8){
+                    oout.start("/snapperbot2");
+                    serialOscOut(noteNum, vel);
+                    <<< "/snapperbot2", noteNum, vel >>>;
+                    }
+                    if (noteNum < 12){
+                    oout.start("/snapperbot3");
+                    serialOscOut(noteNum, vel);
+                    <<< "/snapperbot3", noteNum, vel >>>;
+                    }
+                    if (noteNum < 16){
+                    oout.start("/snapperbot4");
+                    serialOscOut(noteNum, vel);
+                    <<< "/snapperbot4", noteNum, vel >>>;
+                    }
+                    if (noteNum < 20){
+                    oout.start("/snapperbot5");
+                    serialOscOut(noteNum, vel);
+                    <<< "/snapperbot5", noteNum, vel >>>;
+                    }
+                    if (noteNum < 24){
+                    oout.start("/snapperbot6");
+                    serialOscOut(noteNum, vel);
+                    <<< "/snapperbot6", noteNum, vel >>>;
+                    }
+                }
             }
             if(status==8){ // note off
                 if(chan==5){ // jackbox bass

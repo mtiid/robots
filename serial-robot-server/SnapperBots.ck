@@ -6,45 +6,37 @@ public class SnapperBots extends SerialBot {
     // Marimbot is 0
     // Trimpbeat is 1
     // Trimpspin is 2
-    // Snapperbots are 3-9
+    // Snapperbots are 3-8
+    // StringThing is 9
     
     [3, 4, 5, 6, 7, 8] @=> int IDs[];
     
-    // [60,61,62,63,64,65,66,67,68,69,
-    //  70,71,72,73,74,75,76,77,78,79] @=> int scl[];
+    [0,1,2,3] @=> int scl[];
 
-    // rescale(scl);
+    rescale(scl);
 
-    "/snapperbot1" => string address;
-    IDCheck(3, address) => int check;
+    IDCheck(3, "/snapperbot") => int check;
     if (check >= 0) {
-         spork ~ oscrecv(check, address);
+         spork ~ oscrecv(check, "snapperbot1");
     }
-    /*
-    "/snapperbot2" => address;
-    IDCheck(4, address) => check;
+    IDCheck(4, "/snapperbot") => check;
     if (check >= 0) {
-         spork ~ oscrecv(check, address);
+         spork ~ oscrecv(check, "snapperbot2");
     }
-    "/snapperbot3" => address;
-    IDCheck(5, address) => check;
+    IDCheck(5, "/snapperbot") => check;
     if (check >= 0) {
-         spork ~ oscrecv(check, address);
+         spork ~ oscrecv(check, "/snapperbot3");
     }
-    "/snapperbot4" => address;
-    IDCheck(6, address) => check;
+    IDCheck(6, "/snapperbot") => check;
     if (check >= 0) {
-         spork ~ oscrecv(check, address);
+         spork ~ oscrecv(check, "/snapperbot4");
     }
-    "/snapperbot5" => address;
-    IDCheck(7, address) => check;
+    IDCheck(7, "/snapperbot") => check;
     if (check >= 0) {
-         spork ~ oscrecv(check, address);
+         spork ~ oscrecv(check, "/snapperbot5");
     }
-    "/snapperbot6" => address;
-    IDCheck(8, address) => check;
+    IDCheck(8, "/snapperbot") => check;
     if (check >= 0) {
-         spork ~ oscrecv(check, address);
+         spork ~ oscrecv(check, "/snapperbot6");
     }
-    */
 }
