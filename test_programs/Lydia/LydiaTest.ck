@@ -37,14 +37,18 @@ fun void tbPlay(int note, int vel, int msDelay){
 
 while(true) {
     // Trimpspin test
+    // They are not really 'tuned' but the
+    // lower the note the lower pitch 
     for(0 => int i; i<tsScl.size(); i++){
-        tbPlay(60, 50, 10);
         100 => int vel;
         <<< "tscScl:", tsScl[i], " - ", vel >>>;
         spork ~ tsPlay(tsScl[i], vel, 1000);
-        100::ms => now;
+        200::ms => now;
     }
     // Trimpbeat test
+    // 60 is the backboard beater
+    // 69 is the wood block beater
+    // 61 - 68 are notes
     for(0 => int i; i<tbScl.size(); i++){
         // tbPlay(60, 120, 50);
         100 => int vel;
