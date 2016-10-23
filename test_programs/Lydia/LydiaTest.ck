@@ -40,24 +40,25 @@ while(true) {
     // They are not really 'tuned' but the
     // lower the note the lower pitch 
     // 
-    /*
+    
     for(0 => int i; i<tsScl.size(); i++){
         100 => int vel;
         <<< "tscScl:", tsScl[i], " - ", vel >>>;
         spork ~ tsPlay(tsScl[i], vel, 1000);
         200::ms => now;
     }
-    */
+    
     // Trimpbeat test
     // 60 (0)  is the backboard beater
     // 79 (19) is the woodblock beater
     // 61 - 68 are notes 
+    
     // C, G, B, C, F#, G, B, C, E, F, G,  B,  C,  E,  G,  C,  G,  C
     // 1, 2, 3, 4, 5,  6, 7, 8, 9, 10 11, 12, 13, 14, 15, 16, 17, 18
     for(0 => int i; i<tbScl.size(); i++){
         100 => int vel;
         <<< "tbScl:", tbScl[i], " - ", vel >>>;
-        tbPlay(tbScl[10], vel, 100);
+        tbPlay(tbScl[i], vel, 100);
     } 
 }
 

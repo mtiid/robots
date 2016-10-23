@@ -134,27 +134,27 @@ fun void midiLoop(){
                     serialOscOut(noteNum, vel);
                     <<< "/snapperbot1", noteNum, vel >>>;
                     }
-                    if (noteNum < 8){
+                    else if (noteNum < 8){
                     oout.start("/snapperbot2");
                     serialOscOut(noteNum, vel);
                     <<< "/snapperbot2", noteNum, vel >>>;
                     }
-                    if (noteNum < 12){
+                    else if (noteNum < 12){
                     oout.start("/snapperbot3");
                     serialOscOut(noteNum, vel);
                     <<< "/snapperbot3", noteNum, vel >>>;
                     }
-                    if (noteNum < 16){
+                    else if (noteNum < 16){
                     oout.start("/snapperbot4");
                     serialOscOut(noteNum, vel);
                     <<< "/snapperbot4", noteNum, vel >>>;
                     }
-                    if (noteNum < 20){
+                    else if (noteNum < 20){
                     oout.start("/snapperbot5");
                     serialOscOut(noteNum, vel);
                     <<< "/snapperbot5", noteNum, vel >>>;
                     }
-                    if (noteNum < 24){
+                    else if (noteNum < 24){
                     oout.start("/snapperbot6");
                     serialOscOut(noteNum, vel);
                     <<< "/snapperbot6", noteNum, vel >>>;

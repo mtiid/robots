@@ -18,7 +18,8 @@ OscOut s_out;
 ("localhost", 50001) => s_out.dest;
 
 // addresses for hiduino-bots
-["/drumBot", "/clappers", "/ganapati", "/jackbass", "/jackgtr", "/jackperc", "/devibot"] @=> string hiduinos[];   
+["/drumBot", "/clappers", "/ganapati", "/jackbass", 
+ "/jackgtr", "/jackperc", "/devibot"] @=> string hiduinos[];   
 
 // addresses for serial-bots
 ["/marimba", "/trimpspin", "/trimpbeat", 

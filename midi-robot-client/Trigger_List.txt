@@ -54,10 +54,10 @@ Channel 3
 Clappers: 
 Channel 4
 Front of room (with projector screen)
-1     5     9      X     17
-2     6     10    14   18
-3     7     X      X    19
-4     8     X     16    20
+1     5     9     13    17
+2     6     10    14    18
+3     7     11    15    19
+4     8     12    16    20
 Back of class (doors)
 
 Jackbox Percussion:
@@ -81,4 +81,11 @@ Jackbox Guitar:
 Channel 7
 Note # 52-73 (E3-C#6, should be in tune with MIDI pitch)
 
+String Thing:
+Channel 10
+Note # 
+
+SnapperBots
+Channel 11
+Note #
 
