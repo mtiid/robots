@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 *.swp*
 *.swo*
 *.DS_Store
 robot_firmware/
+=======
+*.DS_Store
+>>>>>>> d1caff9338aae1f1ecf9f543cf9a1796b971f24f
