@@ -85,7 +85,7 @@ fun void midiLoop(){
                     }
                 }
                 if(chan==4){ // jackbox percussion
-                    if(noteNum>59 & noteNum<89){
+                    if(noteNum>59 & noteNum<100){
                         oout.start("/jackperc");
                         oscOut(noteNum, vel);
                         <<< "/jackperc", noteNum - 60, vel >>>;

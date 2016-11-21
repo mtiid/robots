@@ -82,7 +82,7 @@ Channel 7
 Note # 52-73 (E3-C#6, should be in tune with MIDI pitch)
 
 String Thing:
-Channel 10
+Channel 11
 Note # 
 
 SnapperBots
