@@ -65,9 +65,9 @@ fun void midiLoop(){
                 }
                 if(chan==1){ // gana pati
                     if(noteNum > 59 & noteNum < 71){
-                        oout.start("/ganipati");
+                        oout.start("/ganapati");
                         oscOut(noteNum, vel);
-                        <<< "/ganipati", noteNum - 60, vel >>>;
+                        <<< "/ganapati", noteNum - 60, vel >>>;
                     }
                 }
                 if(chan==2){ // breakbot
