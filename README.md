@@ -87,23 +87,21 @@ In general, if there the server is acting up a simple restart of the ChucK
 code will clear things up 90% of the time. This can be done by
 opening up terminal and entering in the "robots" command described above.
 Also check for multiple instances of terminal that might be 
-running on the robots computers. Close the
-extra instances and relaunch the server (if needed).
+running on the robots computer. If needed, close the
+extra instances and relaunch the server. 
 
-If one of the bots is not responding first check to see if the bot has
+If one of the bots is not responding, first check to see if the bot has
 power connected. Some bots, such as Lydia and JackBox, can sometimes be 
 accidentally unplugged. Likewise, check the USB cable going to the bot in
-question (or the MIDI cable if it is JackBox). This is a particularly common
-issue for MarimBot. If the cable looks good on the bot end, don't forget to check
-the hub as well. 
+question, and if JackBox is the bot that is acting up also check the two MIDI cables. If the cable looks good on the bot end, don't forget to check the hub end as well. 
 
-If more than one robot is unresponsive there is a chance that something went 
-wrong with one or more of the USB hubs. 
+If more than one robot is unresponsive, there is a chance that something went 
+wrong with one, or more, of the USB hubs. 
 Check to see that the hubs are plugged into their power 
-bricks and that they are turned on and plugged into the robots computer.
+bricks, that they are turned on, and plugged into the robots computer.
 
 If you are running code on your computer through the MIDI Client 
-this might help:
+and are having issues this might help:
 
 1. Test using ChucK or another programming language without the MIDI Client. 
     - Sometimes the MIDI Client can be a bit finicky, this will tell you if
