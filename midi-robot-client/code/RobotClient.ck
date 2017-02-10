@@ -64,7 +64,7 @@ fun void midiLoop(){
                     }
                 }
                 if(chan==1){ // gana pati
-                    if(noteNum > 59 & noteNum < 71){
+                    if(noteNum > 59 & noteNum < 81){
                         oout.start("/ganapati");
                         oscOut(noteNum, vel);
                         <<< "/ganapati", noteNum - 60, vel >>>;
@@ -106,26 +106,43 @@ fun void midiLoop(){
                     }
                 }
                 if(chan==7){ // MDarimBot
+                    if(noteNum > 59){
+                        noteNum - 60 => noteNum;
+                    }
                     oout.start("/marimba");
-                    serialOscOut(noteNum, vel);   
-                    <<< "/marimba", noteNum, vel >>>;               
+                    serialOscOut(noteNum, vel);
+                    <<< "/marimba", noteNum, vel >>>;
                 }
                 if(chan==8){ // Trimpbeat
+                    // allow for 60+ midi notes to work
+                    // for consistancy
+                    if(noteNum > 59){
+                        noteNum - 60 => noteNum;
+                    }
                     oout.start("/trimpbeat");
                     serialOscOut(noteNum, vel);
                     <<< "/trimpbeat", noteNum, vel >>>;
                 }
                 if(chan==9){ // Trimpspin
+                    if(noteNum > 59){
+                        noteNum - 60 => noteNum;
+                    }
                     oout.start("/trimpspin");
                     serialOscOut(noteNum, vel);
                     <<< "/trimpspin", noteNum, vel >>>;
                 }
                 if(chan==10){ // StringThing 
+                    if(noteNum > 59){
+                        noteNum - 60 => noteNum;
+                    }
                     oout.start("/stringthing");
                     serialOscOut(noteNum, vel);
                     <<< "/stringthing", noteNum, vel >>>;
                 }
                 if(chan==11){ // Snapperbots
+                    if(noteNum > 59){
+                        noteNum - 60 => noteNum;
+                    }
                     if (noteNum < 4){
                     oout.start("/snapperbot1");
                     serialOscOut(noteNum, vel);
