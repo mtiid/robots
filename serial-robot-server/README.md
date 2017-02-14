@@ -22,10 +22,13 @@ Each robot needs to have an **identical ID number** that is written into both th
 
 Currenly supported serial robots with their ID number and MIDI channel:
 
-    ID 0 Ch 7 MDarimbot
-    ID 1 Ch 8 Trimpbeat
-    ID 2 Ch 9 Trimpspin
-    ID 9 Ch 10 StringThing 
+    ID X    Ch 1-6 Bots on Hiduino Network
+    ID 0    Ch 7   MDarimbot
+    ID 1    Ch 8   Trimpbeat
+    ID 2    Ch 9   Trimpspin
+    ID 3-8  Ch 11  SnapperBots
+    ID 9    Ch 10  StringThing 
+    ID 10   Ch 12  RattleTron
 
 adding robots
 -------------

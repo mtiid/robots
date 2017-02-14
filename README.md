@@ -62,6 +62,8 @@ A full list of robots by their OSC addresses
     /trimpspin
     /trimpbeat
 	/stringthing
+    /snapperbot
+    /rattletron
 
 To connect using MIDI, see the [midi-robot-client](https://github.com/MTIID/robots/tree/master/midi-robot-client) repo.
 
@@ -93,7 +95,9 @@ extra instances and relaunch the server.
 If one of the bots is not responding, first check to see if the bot has
 power connected. Some bots, such as Lydia and JackBox, can sometimes be 
 accidentally unplugged. Likewise, check the USB cable going to the bot in
-question, and if JackBox is the bot that is acting up also check the two MIDI cables. If the cable looks good on the bot end, don't forget to check the hub end as well. 
+question, and if JackBox is the bot that is acting up also check the two 
+MIDI cables. If the cable looks good on the bot end, 
+don't forget to check the hub end as well. 
 
 If more than one robot is unresponsive, there is a chance that something went 
 wrong with one, or more, of the USB hubs. 

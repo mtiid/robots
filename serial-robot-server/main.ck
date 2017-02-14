@@ -16,6 +16,7 @@ Trimpbeat b;
 Trimpspin s;
 SnapperBot1 sb1;
 StringThing st;
+RattleTron r;
 
 while (true) {
     1::second => now;

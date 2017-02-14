@@ -13,6 +13,7 @@ Machine.add(me.dir() + "/Trimpbeat.ck");
 Machine.add(me.dir() + "/Trimpspin.ck");
 Machine.add(me.dir() + "/SnapperBots.ck");
 Machine.add(me.dir() + "/StringThing.ck");
+Machine.add(me.dir() + "/RattleTron.ck");
 
 // main program
 Machine.add(me.dir() + "/main.ck");

@@ -23,16 +23,15 @@ fun void drumbotPlay(int note, int vel, int delayMS){
 
 // to play each actuator once
 fun void playAllNotes(int delayMS) {
-    for (127 => int vel; vel > 50; vel - 10 => vel){
-        for(0 => int note; note < 13; note++){
-            <<< "drumbot :", note, vel >>>;
-            drumbotPlay(note, vel, delayMS);    
-        }
+    for(0 => int note; note < 13; note++){
+        <<< "drumbot :", note, 127 >>>;
+        drumbotPlay(note, 127, delayMS);    
     }
 }
 
 // both 0 and 1 are different sides of the kick drum
 fun void kickDemo() {
+    <<<"Kick Demo">>>;
     for (127 => int vel; vel > 50; vel - 10 => vel){
         for(0 => int note; note < 2; note++){
             <<< "drumbot :", note, vel >>>;
@@ -40,22 +39,23 @@ fun void kickDemo() {
         }
     }
     for (127 => int vel; vel > 50; vel - 20 => vel){
-
-            <<< "drumbot :", 0, vel >>>;
-            drumbotPlay(0, vel, 100);    
+        
+        <<< "drumbot :", 0, vel >>>;
+        drumbotPlay(0, vel, 100);    
     }
     for (127 => int vel; vel > 50; vel - 20 => vel){
-
-            <<< "drumbot :", 1, vel >>>;
-            drumbotPlay(1, vel, 50);    
+        
+        <<< "drumbot :", 1, vel >>>;
+        drumbotPlay(1, vel, 50);    
     }
 }
 
 // proper brush technique
 fun void smoothBrush() {
     // use many quick pulses to move brush smoothly
-    // this for loop will move the brush for 2.5 seconds
-    for (0 => int i; i < 250; i++){
+    // this for loop will move the brush for 3.5 seconds
+    <<<"Smooth Brush Demo">>>;
+    for (0 => int i; i < 350; i++){
         drumbotPlay(5, 127, 10);
     }
 }
@@ -76,4 +76,7 @@ fun void smoothBrush() {
 // 12  - Crash Double Beater #2 - works well
 while (true) {
     playAllNotes(500);
+    smoothBrush();
+    kickDemo();
+    1::second => now;
 }

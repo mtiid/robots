@@ -1,3 +1,4 @@
+Machine.add(me.dir()+"/Watchdog.ck");
 Machine.add(me.dir()+"/Bot.ck");
 Machine.add(me.dir()+"/MahaDevi.ck");
 Machine.add(me.dir()+"/GanaPati.ck");

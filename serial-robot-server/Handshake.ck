@@ -61,7 +61,7 @@ public class Handshake {
             serial[i].writeBytes(ping);
             serial[i].onByte() => now;
             serial[i].getByte() => int arduinoID;
-            // <<< "arduin id : ", arduinoID>>>;
+            <<< "arduin id : ", arduinoID>>>;
             arduinoID => robotID[i];
         }
     }

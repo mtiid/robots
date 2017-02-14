@@ -20,14 +20,27 @@ fun void marimbotPlay(int note, int vel, int msDelay){
    marimbotSend(note, 0);
 }
 
-// marimbot test
-// accepts 
-while(1) {
+fun void shakeShake(int numTimes, int delayTime) {
+    <<<"Shake baby">>>;
+    for(0 => int i; i < numTimes; i++){
+        marimbotPlay(mScl[Math.random2(0, mScl.size()-1)], 60, delayTime);    
+    } 
+}
+
+fun void playAllNotes(int delayTime) {
+    <<<"Playing all Marimbot notes">>>;
     for(0 => int i; i < mScl.size(); i++){
-        127 => int vel;
         i => int s;
-        200 => int t;
-        <<< "marimbot :", i, " - ", vel >>>;
-        marimbotPlay(mScl[s], vel, t);    
+        marimbotPlay(mScl[s], 100, delayTime);    
     }
+    for(mScl.size() -1 => int i; i > -1; i--){
+        i => int s;
+        marimbotPlay(mScl[s], 100, delayTime);    
+    }
+}
+
+while(1) {
+    playAllNotes(160);
+    shakeShake(1000, 20);
+    3::second => now;
 }

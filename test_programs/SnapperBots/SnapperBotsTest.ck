@@ -2,7 +2,7 @@ OscOut out;
 ("chuckServer.local", 50000) => out.dest;
 
 fun void snapperPlay(int note, int vel){
-    out.start("/snapperbot1");
+    out.start("/snapperbots");
     out.add(note);
     out.add(vel);
     out.send();
@@ -11,7 +11,7 @@ fun void snapperPlay(int note, int vel){
 // Clapper test
 for(5 => int vel; vel < 65; 1 +=> vel){
     for(0 => int i; i < 65; i++){
-        <<< "snapper1:", i, " - ", vel >>>;
+        <<< "snappers:", i, " - ", vel >>>;
         snapperPlay(i, vel);
         0.1::second => now;
         snapperPlay(i, 0);

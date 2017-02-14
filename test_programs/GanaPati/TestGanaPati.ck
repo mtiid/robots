@@ -16,12 +16,7 @@ fun void ganaPlay(int note, int vel, int delayMS){
     ganaSend(note, 0);
 }
 
-// ganapai test
-// accepts 0-9 (10 notes)
-// currently (10/10/2016) the following are broke:
-// 0, 4, 5, 9
-while (true) {
-    // plays through all notes
+fun void splatter() {
     for (127 => int vel; vel > 0; 25 -=> vel){
         for(0 => int i; i < 12; i++){
             i => int note;
@@ -30,6 +25,24 @@ while (true) {
             <<< "ganapati : ", note, " : ", velocity >>>;
             ganaPlay(note, velocity, msDelay);    
         }
-    }   
+    }      
+}
+
+// ganapai test
+// accepts 0-9 (10 notes)
+// currently (02/10/2017) it is in the following state
+// 0  - Does Nothing
+// 1  - Bottom right - bottom beater
+// 2  - Bottom left  - bottom beater  - higher
+// 3  - Bottom left  - top beater     - low
+// 4  - Does Nothing
+// 5  - Does Nothing
+// 6  - Middle Left  - left beater    - lower
+// 7  - Middle Left  - top beater     - lowest
+// 8  - Middle Left  - bottom beater  - high
+// 9  - Does Nothing
+while (true) {
+    // plays through all notes
+    splatter();
 }
 

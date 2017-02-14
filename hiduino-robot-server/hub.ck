@@ -9,6 +9,10 @@ OscMsg msg;
 50000 => in.port;
 in.listenAll();
 
+// create instance of watchdog
+Watchdog watchdog;
+spork ~ watchdog.watch();
+
 // localhost out for hiduino-bots
 OscOut h_out;
 ("localhost", 11235) => h_out.dest;
@@ -23,9 +27,7 @@ OscOut s_out;
 
 // addresses for serial-bots
 ["/marimba", "/trimpspin", "/trimpbeat", 
- "/snapperbots", "/snapperbot1", "/snapperbot2", "/snapperbot3", 
- "/snapperbot4", "/snapperbot5", "/snapperbot6",
- "/stringthing"] @=> string serials[];   
+ "/snapperbots", "/stringthing", "/rattletron"] @=> string serials[];   
 
 // checks for hiduino-bot message
 fun int hCheck(string m) {
@@ -52,6 +54,7 @@ fun int sCheck(string m) {
 while (true) {
     in => now;
     while (in.recv(msg)) { 
+        watchdog.ping();
         if (hCheck(msg.address)) {
             h_out.start(msg.address);
             h_out.add(msg.getInt(0));
