@@ -9,7 +9,9 @@ HandshakeID talk;
 // initial handshake between ChucK and Arduinos
 talk.talk.init();
 1::second => now;
+<<<"-----------------">>>;
 <<< "Handshakes done" >>>;
+<<<"-----------------">>>;
 // bring on the bots
 MDarimBot m;
 Trimpbeat b;
@@ -17,6 +19,9 @@ Trimpspin s;
 SnapperBot1 sb1;
 StringThing st;
 RattleTron r;
+Tammy t;
+4::second => now;
+<<<"-----------------">>>;
 
 while (true) {
     1::second => now;

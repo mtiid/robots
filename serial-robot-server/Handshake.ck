@@ -45,23 +45,18 @@ public class Handshake {
             if (!serial[i].open(serial_port[i], SerialIO.B57600, SerialIO.BINARY)) {
                 <<< "Unable to open serial device:", "\t", list[serial_port[i]] >>>;
             }
-            else {
-                <<< list[serial_port[i]], "assigned to port", serial_port[i], "" >>>;
-            }
         }
-        <<< "-", "" >>>;
         2.5::second => now;
+        <<< "-", "" >>>;
     }
 
     // pings the Arduinos and returns their 'arduinoID'
     fun void handshake() {
         [255, 255, 255] @=> int ping[];
         for (int i ; i < serial.cap(); i++) {
-            // <<< "Testing port : ", i>>>;
             serial[i].writeBytes(ping);
             serial[i].onByte() => now;
             serial[i].getByte() => int arduinoID;
-            <<< "arduin id : ", arduinoID>>>;
             arduinoID => robotID[i];
         }
     }

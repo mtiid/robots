@@ -10,7 +10,7 @@
 
 public class Watchdog{
     now => time lastPing;
-    30::second => dur waitTime;
+    300::second => dur waitTime;
     1 => int isHot;
     <<<"----------------------------">>>;
     <<<"Initializing Watchdog">>>;
