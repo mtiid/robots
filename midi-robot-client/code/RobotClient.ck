@@ -147,6 +147,14 @@ fun void midiLoop(){
                     serialOscOut(noteNum, vel);
                     <<< "/rattletron", noteNum, vel >>>;
                 }
+                if(chan==13){ // BlowBot
+                    if(noteNum > 59){
+                        noteNum - 60 => noteNum;
+                    }
+                    oout.start("/blowbot");
+                    serialOscOut(noteNum, vel);
+                    <<< "/blowbot", noteNum, vel >>>;
+                }
                 if(chan==11){ // Snapperbots
                     if(noteNum > 59){
                         noteNum - 60 => noteNum;
