@@ -2,7 +2,7 @@
 // Nathan Villicana-Shaw
 // CalArts Music Tech // MTIID4LIFE
 
-public class StringThing extends SerialBot {
+public class BlowBot extends SerialBot {
     // MDarimBot is 0
     // Trimpbeat is 1
     // Trimpspin is 2

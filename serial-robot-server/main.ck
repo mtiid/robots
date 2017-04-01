@@ -20,7 +20,7 @@ SnapperBot1 sb1;
 StringThing st;
 RattleTron r;
 Tammy t;
-Blowbot bb;
+BlowBot bb;
 4::second => now;
 <<<"-----------------">>>;
 

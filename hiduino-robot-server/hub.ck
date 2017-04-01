@@ -28,7 +28,7 @@ OscOut s_out;
 // addresses for serial-bots
 ["/marimba", "/trimpspin", "/trimpbeat", 
  "/snapperbots", "/stringthing", 
- "/tammy", "/rattletron"] @=> string serials[];   
+ "/tammy", "/rattletron", "/blowbot"] @=> string serials[];   
 
 // checks for hiduino-bot message
 fun int hCheck(string m) {
