@@ -106,54 +106,37 @@ fun void midiLoop(){
                     }
                 }
                 if(chan==7){ // MDarimBot
-                    if(noteNum > 59){
-                        noteNum - 60 => noteNum;
-                    }
                     oout.start("/marimba");
                     serialOscOut(noteNum, vel);
                     <<< "/marimba", noteNum, vel >>>;
                 }
                 if(chan==8){ // Trimpbeat
-                    // allow for 60+ midi notes to work
-                    // for consistancy
-                    if(noteNum > 59){
-                        noteNum - 60 => noteNum;
-                    }
                     oout.start("/trimpbeat");
                     serialOscOut(noteNum, vel);
                     <<< "/trimpbeat", noteNum, vel >>>;
                 }
                 if(chan==9){ // Trimpspin
-                    if(noteNum > 59){
-                        noteNum - 60 => noteNum;
-                    }
                     oout.start("/trimpspin");
                     serialOscOut(noteNum, vel);
                     <<< "/trimpspin", noteNum, vel >>>;
                 }
                 if(chan==10){ // StringThing 
-                    if(noteNum > 59){
-                        noteNum - 60 => noteNum;
-                    }
                     oout.start("/stringthing");
                     serialOscOut(noteNum, vel);
                     <<< "/stringthing", noteNum, vel >>>;
                 }
                 if(chan==12){ // RattleTron
-                    if(noteNum > 59){
-                        noteNum - 60 => noteNum;
-                    }
                     oout.start("/rattletron");
                     serialOscOut(noteNum, vel);
                     <<< "/rattletron", noteNum, vel >>>;
                 }
-                if(chan==13){ // BlowBot
+                if(chan==13){ // WindBot
                     if(noteNum > 59){
                         noteNum - 60 => noteNum;
                     }
-                    oout.start("/blowbot");
+                    oout.start("/windbot");
                     serialOscOut(noteNum, vel);
-                    <<< "/blowbot", noteNum, vel >>>;
+                    <<< "/windbot", noteNum, vel >>>;
                 }
                 if(chan==11){ // Snapperbots
                     if(noteNum > 59){
