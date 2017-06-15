@@ -18,7 +18,8 @@ public class WindBot extends SerialBot {
     rescale(scl);
 
     12 => int ID;
-    0 => int reservoir;
+    0 => float reservoir;
+    0 => int filling;
     
     "/windbot" => string address;
     IDCheck(ID, address) => int check;
@@ -31,10 +32,19 @@ public class WindBot extends SerialBot {
     fun void trackReservoir() {
         while(true) {
             
-            reservoir-10 => reservoir;
+            reservoir-2 => reservoir;
+            <<< "reservoir:", reservoir >>>;
             
-            if(reservoir < 2000) {
-                talk.talk.note(50001, 14, 1000);
+            if(reservoir < 600) {
+                1 => filling;
+            }
+            else if(reservoir > 900) {
+                0 => filling;
+            }
+            
+            if(filling) {
+                talk.talk.note(check, 14, 1000);
+                5 +=> reservoir;
             }
             
             0.5::second => now;
@@ -42,14 +52,15 @@ public class WindBot extends SerialBot {
     }
     
     // receives OSC and sends out serial
-    fun void oscrecv2(int port, string address) {
+    fun void oscrecv(int port, string address) {
         while (true) {
             oin => now;
             while (oin.recv(msg)) {
                 if (msg.address == address) {
                     renote(msg.getInt(0)) => int note;
                     msg.getInt(1) => int vel;
-                    reservoir-vel => reservoir;
+                    if(note != 14)
+                        reservoir-vel/100 => reservoir;
                     if (note >= 0) {
                         talk.talk.note(port, note, vel);
                     }

@@ -14,7 +14,7 @@ fun void splatter() {
     for(0 => int i; i < workingNotes.size(); i++){
         workingNotes[i] => int note;
         //14 => int note;
-        1000 => int velocity;
+        100 => int velocity;
         <<< "blowbot: ", note, " : ", velocity >>>;
         windSend(note, velocity);    
         125::ms => now;

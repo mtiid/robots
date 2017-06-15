@@ -21,8 +21,29 @@ fun void splatter() {
     }
 }
 
+now + 35::second => time later;
+while(now < later) {
+    14 => int note;
+    1000 => int velocity;
+    windSend(note, velocity);    
+    125::ms => now;
+    <<< "go" >>>;
+}
+
 while (true) {
-    // plays through all notes
-    splatter();
+    now + 35::second => time later;
+    while(now < later) {
+        14 => int note;
+        1000 => int velocity;
+        windSend(note, velocity);    
+        125::ms => now;
+        <<< "go" >>>;
+    }
+    
+    now + 30::second => later;
+    while(now < later) {
+        1::second => now;
+        <<< "stop" >>>;
+    }
 }
 
